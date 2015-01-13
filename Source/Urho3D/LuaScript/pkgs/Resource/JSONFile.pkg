@@ -1,3 +1,4 @@
+module urho {
 $#include "Resource/JSONFile.h"
 
 enum JSONValueType {};
@@ -10,16 +11,17 @@ class JSONFile : Resource
     JSONValue CreateRoot(JSONValueType valueType = JSON_OBJECT);
     JSONValue GetRoot(JSONValueType valueType = JSON_ANY);
 };
+}
 
 ${
-#define TOLUA_DISABLE_tolua_ResourceLuaAPI_JSONFile_new00
-static int tolua_ResourceLuaAPI_JSONFile_new00(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_ResourceLuaAPI_urho_JSONFile_new00
+static int tolua_ResourceLuaAPI_urho_JSONFile_new00(lua_State* tolua_S)
 {
     return ToluaNewObject<JSONFile>(tolua_S);
 }
 
-#define TOLUA_DISABLE_tolua_ResourceLuaAPI_JSONFile_new00_local
-static int tolua_ResourceLuaAPI_JSONFile_new00_local(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_ResourceLuaAPI_urho_JSONFile_new00_local
+static int tolua_ResourceLuaAPI_urho_JSONFile_new00_local(lua_State* tolua_S)
 {
     return ToluaNewObjectGC<JSONFile>(tolua_S);
 }

@@ -1,3 +1,4 @@
+module urho {
 $#include "Graphics/StaticModel.h"
 
 class StaticModel : public Drawable
@@ -20,3 +21,4 @@ class StaticModel : public Drawable
     tolua_readonly tolua_property__get_set unsigned numGeometries;
     tolua_property__get_set unsigned occlusionLodLevel;
 };
+}

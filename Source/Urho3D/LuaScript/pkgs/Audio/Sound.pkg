@@ -1,3 +1,4 @@
+module urho {
 $#include "IO/File.h"
 $#include "Audio/Sound.h"
 
@@ -40,15 +41,17 @@ class Sound : public Resource
     tolua_readonly tolua_property__is_set bool compressed;
 };
 
+}
+
 ${
-#define TOLUA_DISABLE_tolua_AudioLuaAPI_Sound_new00
-static int tolua_AudioLuaAPI_Sound_new00(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_AudioLuaAPI_urho_Sound_new00
+static int tolua_AudioLuaAPI_urho_Sound_new00(lua_State* tolua_S)
 {
     return ToluaNewObject<Sound>(tolua_S);
 }
 
-#define TOLUA_DISABLE_tolua_AudioLuaAPI_Sound_new00_local
-static int tolua_AudioLuaAPI_Sound_new00_local(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_AudioLuaAPI_urho_Sound_new00_local
+static int tolua_AudioLuaAPI_urho_Sound_new00_local(lua_State* tolua_S)
 {
     return ToluaNewObjectGC<Sound>(tolua_S);
 }

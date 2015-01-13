@@ -1,3 +1,4 @@
+module urho {
 $#include "LuaScript/LuaScript.h"
 
 void LuaScriptSendEvent @ SendEvent(const String eventName, VariantMap& eventData);
@@ -11,6 +12,7 @@ void LuaScriptUnsubscribeFromEvents @ UnsubscribeFromEvents(void* sender);
 
 void LuaScriptSetExecuteConsoleCommands @ SetExecuteConsoleCommands(bool enable);
 bool LuaScriptGetExecuteConsoleCommands @ GetExecuteConsoleCommands();
+}
 
 ${
 static LuaScript* GetLuaScript(lua_State* L)
@@ -32,8 +34,8 @@ static bool tolua_isfunctionorurho3dstring(lua_State* L, int lo, int def, tolua_
     return lua_isfunction(L, lo) || tolua_isurho3dstring(L, lo, def, err);
 }
 
-#define TOLUA_DISABLE_tolua_LuaScriptLuaAPI_SubscribeToEvent00
-static int tolua_LuaScriptLuaAPI_SubscribeToEvent00(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_LuaScriptLuaAPI_urho_SubscribeToEvent00
+static int tolua_LuaScriptLuaAPI_urho_SubscribeToEvent00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
     tolua_Error tolua_err;
@@ -63,8 +65,8 @@ tolua_lerror:
 #endif
 }
 
-#define TOLUA_DISABLE_tolua_LuaScriptLuaAPI_SubscribeToEvent01
-static int tolua_LuaScriptLuaAPI_SubscribeToEvent01(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_LuaScriptLuaAPI_urho_SubscribeToEvent01
+static int tolua_LuaScriptLuaAPI_urho_SubscribeToEvent01(lua_State* tolua_S)
 {
     tolua_Error tolua_err;
     if (
@@ -88,13 +90,13 @@ static int tolua_LuaScriptLuaAPI_SubscribeToEvent01(lua_State* tolua_S)
     }
     return 0;
 tolua_lerror:
-    return tolua_LuaScriptLuaAPI_SubscribeToEvent00(tolua_S);
+    return tolua_LuaScriptLuaAPI_urho_SubscribeToEvent00(tolua_S);
 }
 
-static int tolua_LuaScriptLuaAPI_UnsubscribeFromEvent00(lua_State* tolua_S);
+static int tolua_LuaScriptLuaAPI_urho_UnsubscribeFromEvent00(lua_State* tolua_S);
 
-#define TOLUA_DISABLE_tolua_LuaScriptLuaAPI_UnsubscribeFromEvent01
-static int tolua_LuaScriptLuaAPI_UnsubscribeFromEvent01(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_LuaScriptLuaAPI_urho_UnsubscribeFromEvent01
+static int tolua_LuaScriptLuaAPI_urho_UnsubscribeFromEvent01(lua_State* tolua_S)
 {
     tolua_Error tolua_err;
     if (
@@ -116,11 +118,11 @@ static int tolua_LuaScriptLuaAPI_UnsubscribeFromEvent01(lua_State* tolua_S)
     }
     return 0;
 tolua_lerror:
-    return tolua_LuaScriptLuaAPI_UnsubscribeFromEvent00(tolua_S);
+    return tolua_LuaScriptLuaAPI_urho_UnsubscribeFromEvent00(tolua_S);
 }
 
-#define TOLUA_DISABLE_tolua_LuaScriptLuaAPI_UnsubscribeFromEvent02
-static int tolua_LuaScriptLuaAPI_UnsubscribeFromEvent02(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_LuaScriptLuaAPI_urho_UnsubscribeFromEvent02
+static int tolua_LuaScriptLuaAPI_urho_UnsubscribeFromEvent02(lua_State* tolua_S)
 {
     tolua_Error tolua_err;
     if (
@@ -144,6 +146,6 @@ static int tolua_LuaScriptLuaAPI_UnsubscribeFromEvent02(lua_State* tolua_S)
     }
     return 0;
 tolua_lerror:
-    return tolua_LuaScriptLuaAPI_UnsubscribeFromEvent01(tolua_S);
+    return tolua_LuaScriptLuaAPI_urho_UnsubscribeFromEvent01(tolua_S);
 }
 $}

@@ -1,3 +1,4 @@
+module urho {
 $#include "Urho2D/Drawable2D.h"
 
 enum BlendMode {};
@@ -22,3 +23,4 @@ public:
     tolua_property__get_set Texture2D* texture;
     tolua_property__get_set BlendMode blendMode;
 };
+}

@@ -1,3 +1,4 @@
+module urho {
 $#include "Physics/PhysicsWorld.h"
 
 struct PhysicsRaycastResult
@@ -62,6 +63,7 @@ class PhysicsWorld : public Component
     tolua_property__get_set float maxNetworkAngularVelocity;
     tolua_property__is_set bool applyingTransforms;
 };
+}
 
 ${
 static const PODVector<PhysicsRaycastResult>& PhysicsWorldRaycast(PhysicsWorld* physicsWorld, const Ray& ray, float maxDistance, unsigned collisionMask = M_MAX_UNSIGNED)

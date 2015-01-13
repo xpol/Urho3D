@@ -1,3 +1,4 @@
+module urho {
 $#include "Math/Quaternion.h"
 
 class Quaternion
@@ -59,3 +60,4 @@ class Quaternion
     
     static const Quaternion IDENTITY;
 };
+}

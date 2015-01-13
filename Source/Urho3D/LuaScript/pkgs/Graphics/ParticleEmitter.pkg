@@ -1,3 +1,4 @@
+module urho {
 $#include "Graphics/ParticleEmitter.h"
 
 class ParticleEmitter : public BillboardSet
@@ -29,3 +30,4 @@ ${
 #define TOLUA_DISABLE_tolua_set_ParticleEffect_numTextureFrames
 #define tolua_set_ParticleEffect_numTextureFrames NULL
 $}
+}

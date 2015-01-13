@@ -1,3 +1,4 @@
+module urho {
 $#include "UI/UI.h"
 
 class UI : public Object
@@ -71,6 +72,7 @@ class UI : public Object
 
 UI* GetUI();
 tolua_readonly tolua_property__get_set UI* ui;
+}
 
 ${
 static UIElement* UILoadLayout(UI* ui, File* source, XMLFile* styleFile)
@@ -119,12 +121,12 @@ static UIElement* UILoadLayout(UI* ui, XMLFile* source, XMLFile* styleFile)
     return element;
 }
 
-#define TOLUA_DISABLE_tolua_UILuaAPI_GetUI00
-static int tolua_UILuaAPI_GetUI00(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_UILuaAPI_urho_GetUI00
+static int tolua_UILuaAPI_urho_GetUI00(lua_State* tolua_S)
 {
     return ToluaGetSubsystem<UI>(tolua_S);
 }
 
-#define TOLUA_DISABLE_tolua_get_ui_ptr
-#define tolua_get_ui_ptr tolua_UILuaAPI_GetUI00
+#define TOLUA_DISABLE_tolua_get_urho_ui_ptr
+#define tolua_get_urho_ui_ptr tolua_UILuaAPI_urho_GetUI00
 $}

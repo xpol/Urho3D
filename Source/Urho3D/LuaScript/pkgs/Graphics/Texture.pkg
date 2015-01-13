@@ -1,3 +1,4 @@
+module urho {
 $#include "Graphics/Texture.h"
 
 class Texture : public Resource
@@ -38,3 +39,4 @@ class Texture : public Resource
     tolua_property__get_set Texture* backupTexture;
     tolua_readonly tolua_property__get_set TextureUsage usage;
 };
+}

@@ -1,3 +1,4 @@
+module urho {
 $#include "Math/Vector2.h"
 
 class Vector2
@@ -64,3 +65,4 @@ class IntVector2
     
     static const IntVector2 ZERO;
 };
+}

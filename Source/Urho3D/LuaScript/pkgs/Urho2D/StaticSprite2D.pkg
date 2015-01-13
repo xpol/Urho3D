@@ -1,3 +1,4 @@
+module urho {
 $#include "Urho2D/StaticSprite2D.h"
 
 class StaticSprite2D : public Drawable2D
@@ -19,3 +20,4 @@ public:
     tolua_property__get_set bool flipY;
     tolua_property__get_set Color& color;
 };
+}

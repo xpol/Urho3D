@@ -1,3 +1,4 @@
+module urho {
 $#include "IO/Deserializer.h"
 
 class Deserializer
@@ -56,6 +57,7 @@ class Deserializer
     tolua_readonly tolua_property__get_set unsigned size;
     tolua_readonly tolua_property__is_set bool eof;
 };
+}
 
 ${
 static VectorBuffer DeserializerRead(Deserializer* deserializer, unsigned size)

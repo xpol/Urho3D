@@ -1,3 +1,4 @@
+module urho {
 $#include "Scene/ValueAnimation.h"
 
 enum InterpMethod
@@ -25,16 +26,17 @@ class ValueAnimation : public Resource
     tolua_property__get_set float splineTension;
     tolua_property__get_set VariantType valueType;
 };
+}
 
 ${
-#define TOLUA_DISABLE_tolua_SceneLuaAPI_ValueAnimation_new00
-static int tolua_SceneLuaAPI_ValueAnimation_new00(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_SceneLuaAPI_urho_ValueAnimation_new00
+static int tolua_SceneLuaAPI_urho_ValueAnimation_new00(lua_State* tolua_S)
 {
     return ToluaNewObject<ValueAnimation>(tolua_S);
 }
 
-#define TOLUA_DISABLE_tolua_SceneLuaAPI_ValueAnimation_new00_local
-static int tolua_SceneLuaAPI_ValueAnimation_new00_local(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_SceneLuaAPI_urho_ValueAnimation_new00_local
+static int tolua_SceneLuaAPI_urho_ValueAnimation_new00_local(lua_State* tolua_S)
 {
     return ToluaNewObjectGC<ValueAnimation>(tolua_S);
 }

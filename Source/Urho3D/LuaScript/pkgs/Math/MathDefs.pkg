@@ -1,3 +1,4 @@
+module urho {
 $#include "Math/MathDefs.h"
 
 static const float M_PI;
@@ -61,3 +62,4 @@ float Random(float min, float max);
 int Random @ RandomInt(int range);
 int Random @ RandomInt(int min, int max);
 float RandomNormal(float meanValue, float variance);
+}

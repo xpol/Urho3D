@@ -1,3 +1,4 @@
+module urho {
 $#include "Network/Network.h"
 
 class Network
@@ -50,16 +51,17 @@ class Network
 
 Network* GetNetwork();
 tolua_readonly tolua_property__get_set Network* network;
+}
 
 ${
-#define TOLUA_DISABLE_tolua_NetworkLuaAPI_GetNetwork00
-static int tolua_NetworkLuaAPI_GetNetwork00(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_NetworkLuaAPI_urho_GetNetwork00
+static int tolua_NetworkLuaAPI_urho_GetNetwork00(lua_State* tolua_S)
 {
     return ToluaGetSubsystem<Network>(tolua_S);
 }
 
-#define TOLUA_DISABLE_tolua_get_network_ptr
-#define tolua_get_network_ptr tolua_NetworkLuaAPI_GetNetwork00
+#define TOLUA_DISABLE_tolua_get_urho_network_ptr
+#define tolua_get_urho_network_ptr tolua_NetworkLuaAPI_urho_GetNetwork00
 
 static HttpRequest* NetworkMakeHttpRequest(Network* network, const String& url, const String& verb = String::EMPTY, const Vector<String>& headers = Vector<String>(), const String postData = String::EMPTY)
 {

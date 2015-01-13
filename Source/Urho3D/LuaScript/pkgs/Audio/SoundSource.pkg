@@ -1,3 +1,4 @@
+module urho {
 $#include "Audio/SoundSource.h"
 
 class SoundSource : public Component
@@ -34,3 +35,4 @@ class SoundSource : public Component
     tolua_property__get_set bool autoRemove;
     tolua_readonly tolua_property__is_set bool playing;
 };
+}

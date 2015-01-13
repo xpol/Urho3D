@@ -1,3 +1,4 @@
+module urho {
 $#include "Graphics/RenderSurface.h"
 
 class RenderSurface
@@ -32,3 +33,4 @@ class RenderSurface
     tolua_property__get_set RenderSurface* linkedRenderTarget;
     tolua_property__get_set RenderSurface* linkedDepthStencil;
 };
+}

@@ -1,3 +1,4 @@
+module urho {
 $#include "Urho2D/Animation2D.h"
 
 class Animation2D : RefCounted
@@ -10,3 +11,4 @@ class Animation2D : RefCounted
     tolua_readonly tolua_property__get_set float length;
     tolua_readonly tolua_property__is_set bool looped;
 };
+}

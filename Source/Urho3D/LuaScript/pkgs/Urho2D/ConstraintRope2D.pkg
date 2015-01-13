@@ -1,3 +1,4 @@
+module urho {
 $#include "Urho2D/ConstraintRope2D.h"
 
 class ConstraintRope2D : Constraint2D
@@ -14,3 +15,4 @@ class ConstraintRope2D : Constraint2D
     tolua_property__get_set Vector2& otherBodyAnchor;
     tolua_property__get_set float maxLength;
 };
+}

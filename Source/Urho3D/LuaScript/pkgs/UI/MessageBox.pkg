@@ -1,3 +1,4 @@
+module urho {
 $#include "UI/MessageBox.h"
 
 class MessageBox : public Object
@@ -16,10 +17,11 @@ class MessageBox : public Object
     tolua_property__get_set String message;
     tolua_readonly tolua_property__get_set UIElement* window;
 };
+}
 
 ${
-#define TOLUA_DISABLE_tolua_UILuaAPI_MessageBox_new00
-static int tolua_UILuaAPI_MessageBox_new00(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_UILuaAPI_urho_MessageBox_new00
+static int tolua_UILuaAPI_urho_MessageBox_new00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -52,8 +54,8 @@ static int tolua_UILuaAPI_MessageBox_new00(lua_State* tolua_S)
 #endif
 }
 
-#define TOLUA_DISABLE_tolua_UILuaAPI_MessageBox_new00_local
-static int tolua_UILuaAPI_MessageBox_new00_local(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_UILuaAPI_urho_MessageBox_new00_local
+static int tolua_UILuaAPI_urho_MessageBox_new00_local(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;

@@ -1,3 +1,4 @@
+module urho {
 $#include "Input/InputEvents.h"
 
 static const int MOUSEB_LEFT;
@@ -395,3 +396,4 @@ static const int CONTROLLER_AXIS_RIGHTX;
 static const int CONTROLLER_AXIS_RIGHTY;
 static const int CONTROLLER_AXIS_TRIGGERLEFT;
 static const int CONTROLLER_AXIS_TRIGGERRIGHT;
+}

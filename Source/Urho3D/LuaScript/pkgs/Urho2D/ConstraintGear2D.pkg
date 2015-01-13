@@ -1,3 +1,4 @@
+module urho {
 $#include "Urho2D/ConstraintGear2D.h"
 
 class ConstraintGear2D : Constraint2D
@@ -14,3 +15,4 @@ class ConstraintGear2D : Constraint2D
     tolua_property__get_set Constraint2D* otherConstraint;
     tolua_property__get_set float ratio;
 };
+}

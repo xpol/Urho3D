@@ -1,3 +1,4 @@
+module urho {
 $#include "Audio/SoundSource3D.h"
 
 class SoundSource3D : public SoundSource
@@ -25,3 +26,4 @@ class SoundSource3D : public SoundSource
 };
 
 $#define GetRolloffFactor RollAngleoffFactor
+}

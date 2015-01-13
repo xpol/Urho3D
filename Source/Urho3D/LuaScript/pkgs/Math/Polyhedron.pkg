@@ -1,3 +1,4 @@
+module urho {
 $#include "Math/Polyhedron.h"
 
 class Polyhedron
@@ -24,3 +25,4 @@ class Polyhedron
     
     tolua_readonly tolua_property__no_prefix bool empty;
 };
+}

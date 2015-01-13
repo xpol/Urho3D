@@ -319,7 +319,7 @@ void LuaScriptInstance::SetScriptObjectType(const String& scriptObjectType)
 
     ReleaseObject();
 
-    WeakPtr<LuaFunction> function = luaScript_->GetFunction("CreateScriptObjectInstance");
+    WeakPtr<LuaFunction> function = luaScript_->GetFunction("urho.CreateScriptObjectInstance");
     if (!function || !function->BeginCall())
         return;
 

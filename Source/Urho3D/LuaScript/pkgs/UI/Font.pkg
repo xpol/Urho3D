@@ -1,3 +1,4 @@
+module urho {
 $#include "UI/Font.h"
 
 class Font : public Resource
@@ -13,3 +14,4 @@ class Font : public Resource
     tolua_property__get_set IntVector2 absoluteGlyphOffset;
     tolua_property__get_set Vector2 scaledGlyphOffset;
 };
+}

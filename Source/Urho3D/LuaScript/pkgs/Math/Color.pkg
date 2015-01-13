@@ -1,3 +1,4 @@
+module urho {
 $#include "Math/Color.h"
 
 class Color
@@ -61,3 +62,4 @@ class Color
     static const Color YELLOW;
     static const Color TRANSPARENT;
 };
+}

@@ -1,3 +1,5 @@
+module urho {
+
 $#include "Engine/DebugHud.h"
 
 static const unsigned DEBUGHUD_SHOW_NONE;
@@ -43,14 +45,15 @@ class DebugHud : public Object
 
 DebugHud* GetDebugHud();
 tolua_readonly tolua_property__get_set DebugHud* debugHud;
+}
 
 ${
-#define TOLUA_DISABLE_tolua_EngineLuaAPI_GetDebugHud00
-static int tolua_EngineLuaAPI_GetDebugHud00(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_EngineLuaAPI_urho_GetDebugHud00
+static int tolua_EngineLuaAPI_urho_GetDebugHud00(lua_State* tolua_S)
 {
     return ToluaGetSubsystem<DebugHud>(tolua_S);
 }
 
-#define TOLUA_DISABLE_tolua_get_debugHud_ptr
-#define tolua_get_debugHud_ptr tolua_EngineLuaAPI_GetDebugHud00
+#define TOLUA_DISABLE_tolua_get_urho_debugHud_ptr
+#define tolua_get_urho_debugHud_ptr tolua_EngineLuaAPI_urho_GetDebugHud00
 $}

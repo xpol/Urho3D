@@ -1,3 +1,4 @@
+module urho {
 $#include "UI/Menu.h"
 
 class Menu : public Button
@@ -23,16 +24,17 @@ class Menu : public Button
     tolua_readonly tolua_property__get_set int acceleratorKey;
     tolua_readonly tolua_property__get_set int acceleratorQualifiers;
 };
+}
 
 ${
-#define TOLUA_DISABLE_tolua_UILuaAPI_Menu_new00
-static int tolua_UILuaAPI_Menu_new00(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_UILuaAPI_urho_Menu_new00
+static int tolua_UILuaAPI_urho_Menu_new00(lua_State* tolua_S)
 {
     return ToluaNewObject<Menu>(tolua_S);
 }
 
-#define TOLUA_DISABLE_tolua_UILuaAPI_Menu_new00_local
-static int tolua_UILuaAPI_Menu_new00_local(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_UILuaAPI_urho_Menu_new00_local
+static int tolua_UILuaAPI_urho_Menu_new00_local(lua_State* tolua_S)
 {
     return ToluaNewObjectGC<Menu>(tolua_S);
 }

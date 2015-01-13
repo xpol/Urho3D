@@ -1,3 +1,4 @@
+module urho {
 $#include "Math/Ray.h"
 
 class Ray
@@ -28,3 +29,4 @@ class Ray
     Vector3 origin_ @ origin;
     Vector3 direction_ @ direction;
 };
+}

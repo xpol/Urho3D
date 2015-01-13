@@ -1,3 +1,4 @@
+module urho {
 $#include "UI/Text.h"
 
 enum TextEffect
@@ -65,16 +66,17 @@ class Text : public UIElement
     tolua_readonly tolua_property__get_set unsigned numRows;
     tolua_readonly tolua_property__get_set unsigned numChars;
 };
+}
 
 ${
-#define TOLUA_DISABLE_tolua_UILuaAPI_Text_new00
-static int tolua_UILuaAPI_Text_new00(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_UILuaAPI_urho_Text_new00
+static int tolua_UILuaAPI_urho_Text_new00(lua_State* tolua_S)
 {
     return ToluaNewObject<Text>(tolua_S);
 }
 
-#define TOLUA_DISABLE_tolua_UILuaAPI_Text_new00_local
-static int tolua_UILuaAPI_Text_new00_local(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_UILuaAPI_urho_Text_new00_local
+static int tolua_UILuaAPI_urho_Text_new00_local(lua_State* tolua_S)
 {
     return ToluaNewObjectGC<Text>(tolua_S);
 }

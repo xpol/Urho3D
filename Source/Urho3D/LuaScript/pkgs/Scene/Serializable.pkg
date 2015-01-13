@@ -1,3 +1,4 @@
+module urho {
 $#include "Scene/Serializable.h"
 
 class Serializable : public Object
@@ -7,3 +8,4 @@ class Serializable : public Object
     
     tolua_property__is_set bool temporary;
 };
+}

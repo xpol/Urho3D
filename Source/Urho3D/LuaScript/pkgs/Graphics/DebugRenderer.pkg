@@ -1,3 +1,4 @@
+module urho {
 $#include "Graphics/DebugRenderer.h"
 
 class DebugRenderer : public Component
@@ -26,3 +27,4 @@ class DebugRenderer : public Component
     tolua_readonly tolua_property__get_set Matrix4& projection;
     tolua_readonly tolua_property__get_set Frustum& frustum;
 };
+}

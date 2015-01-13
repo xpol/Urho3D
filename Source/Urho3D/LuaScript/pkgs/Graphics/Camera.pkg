@@ -1,3 +1,4 @@
+module urho {
 $#include "Graphics/Camera.h"
 
 enum FillMode {};
@@ -88,4 +89,4 @@ class Camera : public Component
     tolua_readonly tolua_property__is_set bool projectionValid;
     tolua_readonly tolua_property__get_set Matrix3x4 effectiveWorldTransform;
 };
-
+}

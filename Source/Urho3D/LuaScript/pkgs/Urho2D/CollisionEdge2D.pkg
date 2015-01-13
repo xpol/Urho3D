@@ -1,3 +1,4 @@
+module urho {
 $#include "Urho2D/CollisionEdge2D.h"
 
 class CollisionEdge2D : CollisionShape2D
@@ -12,3 +13,4 @@ class CollisionEdge2D : CollisionShape2D
     tolua_property__get_set Vector2& vertex1;
     tolua_property__get_set Vector2& vertex2;
 };
+}

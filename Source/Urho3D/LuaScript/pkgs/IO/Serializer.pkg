@@ -1,3 +1,4 @@
+module urho {
 $#include "IO/Serializer.h"
 
 class Serializer
@@ -44,6 +45,7 @@ class Serializer
     bool WriteNetID(unsigned value);
     bool WriteLine(const String value);
 };
+}
 
 ${
 static unsigned SerializerWrite(Serializer* serializer, const VectorBuffer& buffer)

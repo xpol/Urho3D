@@ -1,3 +1,4 @@
+module urho {
 $#include "Urho2D/CollisionChain2D.h"
 
 class CollisionChain2D : CollisionShape2D
@@ -15,3 +16,4 @@ class CollisionChain2D : CollisionShape2D
     tolua_property__get_set bool loop;
     tolua_property__get_set unsigned vertexCount;
 };
+}

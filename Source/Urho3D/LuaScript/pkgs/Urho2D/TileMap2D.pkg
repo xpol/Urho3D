@@ -1,3 +1,4 @@
+module urho {
 $#include "Urho2D/TileMap2D.h"
 
 class TileMap2D : Component
@@ -14,6 +15,7 @@ class TileMap2D : Component
     tolua_readonly tolua_property__get_set TileMapInfo2D& info;
     tolua_readonly tolua_property__get_set unsigned numLayers;
 };
+}
 
 ${
 static bool TileMap2DPositionToTileIndex(const TileMap2D* tileMap, const Vector2& position, int* x, int* y)

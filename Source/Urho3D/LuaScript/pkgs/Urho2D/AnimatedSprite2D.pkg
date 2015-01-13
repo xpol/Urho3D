@@ -1,3 +1,4 @@
+module urho {
 $#include "Urho2D/AnimatedSprite2D.h"
 
 enum LoopMode2D
@@ -25,3 +26,4 @@ class AnimatedSprite2D : StaticSprite2D
     tolua_property__get_set AnimationSet2D* animationSet;
     tolua_property__get_set LoopMode2D loopMode;
 };
+}

@@ -1,3 +1,4 @@
+module urho {
 $#include "Urho2D/PhysicsWorld2D.h"
 
 struct PhysicsRaycastResult2D
@@ -65,6 +66,7 @@ class PhysicsWorld2D : Component
     tolua_property__get_set int velocityIterations;
     tolua_property__get_set int positionIterations;
 };
+}
 
 ${
 const PODVector<PhysicsRaycastResult2D>& PhysicsWorld2DRaycast(PhysicsWorld2D* physicsWorld, const Vector2& startPoint, const Vector2& endPoint, unsigned collisionMask = M_MAX_UNSIGNED)

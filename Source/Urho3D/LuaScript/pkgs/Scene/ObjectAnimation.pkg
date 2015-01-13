@@ -1,3 +1,4 @@
+module urho {
 $#include "Scene/ObjectAnimation.h"
 
 enum WrapMode
@@ -19,16 +20,17 @@ class ObjectAnimation : Resource
     WrapMode GetAttributeAnimationWrapMode(const String name) const;
     float GetAttributeAnimationSpeed(const String name) const;
 };
+}
 
 ${
-#define TOLUA_DISABLE_tolua_SceneLuaAPI_ObjectAnimation_new00
-static int tolua_SceneLuaAPI_ObjectAnimation_new00(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_SceneLuaAPI_urho_ObjectAnimation_new00
+static int tolua_SceneLuaAPI_urho_ObjectAnimation_new00(lua_State* tolua_S)
 {
     return ToluaNewObject<ObjectAnimation>(tolua_S);
 }
 
-#define TOLUA_DISABLE_tolua_SceneLuaAPI_ObjectAnimation_new00_local
-static int tolua_SceneLuaAPI_ObjectAnimation_new00_local(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_SceneLuaAPI_urho_ObjectAnimation_new00_local
+static int tolua_SceneLuaAPI_urho_ObjectAnimation_new00_local(lua_State* tolua_S)
 {
     return ToluaNewObjectGC<ObjectAnimation>(tolua_S);
 }

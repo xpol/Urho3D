@@ -1,3 +1,4 @@
+module urho {
 $#include "Audio/Audio.h"
 
 static const String SOUND_MASTER;
@@ -42,14 +43,16 @@ class Audio : public Object
 
 Audio* GetAudio();
 tolua_readonly tolua_property__get_set Audio* audio;
+}
+
 
 ${
-#define TOLUA_DISABLE_tolua_AudioLuaAPI_GetAudio00
-static int tolua_AudioLuaAPI_GetAudio00(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_AudioLuaAPI_urho_GetAudio00
+static int tolua_AudioLuaAPI_urho_GetAudio00(lua_State* tolua_S)
 {
     return ToluaGetSubsystem<Audio>(tolua_S);
 }
 
-#define TOLUA_DISABLE_tolua_get_audio_ptr
-#define tolua_get_audio_ptr tolua_AudioLuaAPI_GetAudio00
+#define TOLUA_DISABLE_tolua_get_urho_audio_ptr
+#define tolua_get_urho_audio_ptr tolua_AudioLuaAPI_urho_GetAudio00
 $}

@@ -1,3 +1,4 @@
+module urho {
 $#include "Graphics/DecalSet.h"
 
 class DecalSet : public Drawable
@@ -23,3 +24,4 @@ class DecalSet : public Drawable
     tolua_property__get_set unsigned maxVertices;
     tolua_property__get_set unsigned maxIndices;
 };
+}

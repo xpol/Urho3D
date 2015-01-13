@@ -1,3 +1,4 @@
+module urho {
 $#include "IO/Log.h"
 
 static const int LOG_DEBUG;
@@ -29,14 +30,15 @@ class Log : public Object
 
 Log* GetLog();
 tolua_readonly tolua_property__get_set Log* log;
+}
 
 ${
-#define TOLUA_DISABLE_tolua_IOLuaAPI_GetLog00
-static int tolua_IOLuaAPI_GetLog00(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_IOLuaAPI_urho_GetLog00
+static int tolua_IOLuaAPI_urho_GetLog00(lua_State* tolua_S)
 {
     return ToluaGetSubsystem<Log>(tolua_S);
 }
 
-#define TOLUA_DISABLE_tolua_get_log_ptr
-#define tolua_get_log_ptr tolua_IOLuaAPI_GetLog00
+#define TOLUA_DISABLE_tolua_get_urho_log_ptr
+#define tolua_get_urho_log_ptr tolua_IOLuaAPI_urho_GetLog00
 $}

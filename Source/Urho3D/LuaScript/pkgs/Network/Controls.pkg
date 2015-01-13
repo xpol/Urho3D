@@ -1,3 +1,4 @@
+module urho {
 $#include "Network/Controls.h"
 
 class Controls
@@ -15,3 +16,4 @@ class Controls
     float pitch_ @ pitch;
     VariantMap extraData_ @ extraData;
 };
+}

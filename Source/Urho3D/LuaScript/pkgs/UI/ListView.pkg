@@ -1,3 +1,4 @@
+module urho {
 $#include "UI/ListView.h"
 
 enum HighlightMode
@@ -71,16 +72,17 @@ class ListView : public ScrollView
     tolua_property__get_set bool hierarchyMode;
     tolua_property__get_set int baseIndent;
 };
+}
 
 ${
-#define TOLUA_DISABLE_tolua_UILuaAPI_ListView_new00
-static int tolua_UILuaAPI_ListView_new00(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_UILuaAPI_urho_ListView_new00
+static int tolua_UILuaAPI_urho_ListView_new00(lua_State* tolua_S)
 {
     return ToluaNewObject<ListView>(tolua_S);
 }
 
-#define TOLUA_DISABLE_tolua_UILuaAPI_ListView_new00_local
-static int tolua_UILuaAPI_ListView_new00_local(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_UILuaAPI_urho_ListView_new00_local
+static int tolua_UILuaAPI_urho_ListView_new00_local(lua_State* tolua_S)
 {
     return ToluaNewObjectGC<ListView>(tolua_S);
 }

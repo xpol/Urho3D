@@ -1,3 +1,4 @@
+module urho {
 $#include "Resource/XMLElement.h"
 
 class XMLElement
@@ -86,3 +87,4 @@ class XMLElement
     tolua_readonly tolua_property__get_set unsigned numAttributes;
     tolua_readonly tolua_property__get_set XMLFile* file;
 };
+}

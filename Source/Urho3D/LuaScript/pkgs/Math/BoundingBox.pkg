@@ -1,3 +1,4 @@
+module urho {
 $#include "Math/BoundingBox.h"
 
 class BoundingBox
@@ -58,3 +59,4 @@ class BoundingBox
     tolua_readonly tolua_property__no_prefix Vector3 size;
     tolua_readonly tolua_property__no_prefix Vector3 halfSize;
 };
+}

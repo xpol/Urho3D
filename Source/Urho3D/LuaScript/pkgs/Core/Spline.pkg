@@ -1,3 +1,4 @@
+module urho {
 $#include "Core/Spline.h"
 
 enum InterpolationMode
@@ -29,3 +30,4 @@ class Spline
     
     tolua_property__get_set InterpolationMode interpolationMode;
 };
+}

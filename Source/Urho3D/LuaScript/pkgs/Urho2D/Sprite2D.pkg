@@ -1,3 +1,4 @@
+module urho {
 $#include "Urho2D/Sprite2D.h"
 
 class Sprite2D : public Resource
@@ -21,3 +22,4 @@ public:
     tolua_property__get_set IntVector2 offset;
     tolua_property__get_set SpriteSheet2D* spriteSheet;
 };
+}

@@ -1,3 +1,4 @@
+module urho {
 $#include "Scene/SplinePath.h"
 
 class SplinePath : public Component
@@ -20,3 +21,4 @@ class SplinePath : public Component
     tolua_property__get_set float speed;
     tolua_property__get_set Node* controlledNode;
 };
+}

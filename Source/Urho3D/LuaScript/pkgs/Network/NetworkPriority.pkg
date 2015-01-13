@@ -1,3 +1,4 @@
+module urho {
 $#include "Network/NetworkPriority.h"
 
 class NetworkPriority : public Component
@@ -19,3 +20,4 @@ class NetworkPriority : public Component
     tolua_property__get_set float minPriority;
     tolua_property__get_set bool alwaysUpdateOwner;
 };
+}

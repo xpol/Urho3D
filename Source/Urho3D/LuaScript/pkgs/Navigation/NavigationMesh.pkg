@@ -1,3 +1,4 @@
+module urho {
 $#include "Navigation/NavigationMesh.h"
 
 struct NavigationGeometryInfo
@@ -78,6 +79,7 @@ class NavigationMesh : public Component
     tolua_readonly tolua_property__get_set BoundingBox worldBoundingBox;
     tolua_readonly tolua_property__get_set IntVector2 numTiles;
 };
+}
 
 ${
 const PODVector<Vector3>& NavigationMeshFindPath(NavigationMesh* navMesh, const Vector3& start, const Vector3& end, const Vector3& extents = Vector3::ONE)

@@ -1,3 +1,4 @@
+module urho {
 $#include "Core/ProcessUtils.h"
 
 void ErrorDialog(const String title, const String message);
@@ -12,3 +13,4 @@ String GetPlatform();
 
 unsigned GetNumPhysicalCPUs();
 unsigned GetNumLogicalCPUs();
+}

@@ -1,3 +1,4 @@
+module urho {
 $#include "Resource/JSONValue.h"
 
 enum JSONValueType
@@ -117,3 +118,4 @@ class JSONValue
     tolua_readonly tolua_property__is_set bool object;
     tolua_readonly tolua_property__is_set bool array;
 };
+}

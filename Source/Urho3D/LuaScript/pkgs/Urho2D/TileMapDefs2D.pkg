@@ -1,3 +1,4 @@
+module urho {
 $#include "Urho2D/TileMapDefs2D.h"
 
 enum Orientation2D
@@ -80,3 +81,4 @@ class TileMapObject2D
     tolua_readonly tolua_property__get_set int tileGid;
     tolua_readonly tolua_property__get_set Sprite2D* tileSprite;
 };
+}

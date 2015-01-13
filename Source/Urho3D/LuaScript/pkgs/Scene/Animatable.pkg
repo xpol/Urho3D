@@ -1,3 +1,4 @@
+module urho {
 $#include "Scene/Animatable.h"
 
 enum WrapMode{};
@@ -19,3 +20,4 @@ class Animatable : Serializable
     tolua_property__get_set bool animationEnabled;
     tolua_property__get_set ObjectAnimation* objectAnimation;
 };
+}

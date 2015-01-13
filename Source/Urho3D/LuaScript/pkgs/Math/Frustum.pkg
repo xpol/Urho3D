@@ -1,3 +1,4 @@
+module urho {
 $#include "Math/Frustum.h"
 
 enum FrustumPlane
@@ -38,3 +39,4 @@ class Frustum
     Rect Projected(const Matrix4& transform) const;
     void UpdatePlanes();
 };
+}

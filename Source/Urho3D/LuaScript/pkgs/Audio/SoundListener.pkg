@@ -1,6 +1,8 @@
+module urho {
 $#include "Audio/SoundListener.h"
 
 class SoundListener : public Component
 {
 
 };
+}

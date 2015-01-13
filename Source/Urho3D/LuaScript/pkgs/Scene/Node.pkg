@@ -1,3 +1,4 @@
+module urho {
 $#include "IO/File.h"
 $#include "LuaScript/LuaFile.h"
 $#include "LuaScript/LuaScriptInstance.h"
@@ -217,16 +218,17 @@ class Node : public Animatable
     tolua_readonly tolua_property__get_set unsigned numComponents;
     tolua_readonly tolua_property__get_set unsigned numNetworkComponents;
 };
+}
 
 ${
-#define TOLUA_DISABLE_tolua_SceneLuaAPI_Node_new00
-static int tolua_SceneLuaAPI_Node_new00(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_SceneLuaAPI_urho_Node_new00
+static int tolua_SceneLuaAPI_urho_Node_new00(lua_State* tolua_S)
 {
     return ToluaNewObject<Node>(tolua_S);
 }
 
-#define TOLUA_DISABLE_tolua_SceneLuaAPI_Node_new00_local
-static int tolua_SceneLuaAPI_Node_new00_local(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_SceneLuaAPI_urho_Node_new00_local
+static int tolua_SceneLuaAPI_urho_Node_new00_local(lua_State* tolua_S)
 {
     return ToluaNewObjectGC<Node>(tolua_S);
 }
@@ -236,9 +238,9 @@ static bool NodeSaveXML(const Node* node, File* file)
     return file ? node->SaveXML(*file) : false;
 }
 
-#define TOLUA_DISABLE_tolua_SceneLuaAPI_Node_CreateScriptObject00
+#define TOLUA_DISABLE_tolua_SceneLuaAPI_urho_Node_CreateScriptObject00
 
-static int tolua_SceneLuaAPI_Node_CreateScriptObject00(lua_State* tolua_S)
+static int tolua_SceneLuaAPI_urho_Node_CreateScriptObject00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -276,9 +278,9 @@ static int tolua_SceneLuaAPI_Node_CreateScriptObject00(lua_State* tolua_S)
 #endif
 }
 
-#define TOLUA_DISABLE_tolua_SceneLuaAPI_Node_CreateScriptObject01
+#define TOLUA_DISABLE_tolua_SceneLuaAPI_urho_Node_CreateScriptObject01
 
-static int tolua_SceneLuaAPI_Node_CreateScriptObject01(lua_State* tolua_S)
+static int tolua_SceneLuaAPI_urho_Node_CreateScriptObject01(lua_State* tolua_S)
 {
  tolua_Error tolua_err;
  if (
@@ -318,11 +320,11 @@ static int tolua_SceneLuaAPI_Node_CreateScriptObject01(lua_State* tolua_S)
  }
  return 1;
 tolua_lerror:
- return tolua_SceneLuaAPI_Node_CreateScriptObject00(tolua_S);
+ return tolua_SceneLuaAPI_urho_Node_CreateScriptObject00(tolua_S);
 }
 
-#define TOLUA_DISABLE_tolua_SceneLuaAPI_Node_GetScriptObject00
-static int tolua_SceneLuaAPI_Node_GetScriptObject00(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_SceneLuaAPI_urho_Node_GetScriptObject00
+static int tolua_SceneLuaAPI_urho_Node_GetScriptObject00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -354,8 +356,8 @@ static int tolua_SceneLuaAPI_Node_GetScriptObject00(lua_State* tolua_S)
 #endif
 }
 
-#define TOLUA_DISABLE_tolua_SceneLuaAPI_Node_GetScriptObject01
-static int tolua_SceneLuaAPI_Node_GetScriptObject01(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_SceneLuaAPI_urho_Node_GetScriptObject01
+static int tolua_SceneLuaAPI_urho_Node_GetScriptObject01(lua_State* tolua_S)
 {
  tolua_Error tolua_err;
  if (
@@ -394,6 +396,6 @@ static int tolua_SceneLuaAPI_Node_GetScriptObject01(lua_State* tolua_S)
  }
  return 1;
 tolua_lerror:
- return tolua_SceneLuaAPI_Node_GetScriptObject00(tolua_S);
+ return tolua_SceneLuaAPI_urho_Node_GetScriptObject00(tolua_S);
 }
 $}

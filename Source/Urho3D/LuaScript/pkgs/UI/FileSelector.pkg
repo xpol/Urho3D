@@ -1,3 +1,4 @@
+module urho {
 $#include "UI/FileSelector.h"
 
 struct FileSelectorEntry
@@ -55,16 +56,17 @@ class FileSelector : public Object
     tolua_readonly tolua_property__get_set unsigned filterIndex;
     tolua_property__get_set bool directoryMode;
 };
+}
 
 ${
-#define TOLUA_DISABLE_tolua_UILuaAPI_FileSelector_new00
-static int tolua_UILuaAPI_FileSelector_new00(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_UILuaAPI_urho_FileSelector_new00
+static int tolua_UILuaAPI_urho_FileSelector_new00(lua_State* tolua_S)
 {
     return ToluaNewObject<FileSelector>(tolua_S);
 }
 
-#define TOLUA_DISABLE_tolua_UILuaAPI_FileSelector_new00_local
-static int tolua_UILuaAPI_FileSelector_new00_local(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_UILuaAPI_urho_FileSelector_new00_local
+static int tolua_UILuaAPI_urho_FileSelector_new00_local(lua_State* tolua_S)
 {
     return ToluaNewObjectGC<FileSelector>(tolua_S);
 }

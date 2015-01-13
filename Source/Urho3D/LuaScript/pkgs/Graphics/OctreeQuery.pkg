@@ -1,3 +1,4 @@
+module urho {
 $#include "Graphics/OctreeQuery.h"
 
 struct OctreeQueryResult
@@ -28,3 +29,4 @@ struct RayQueryResult
     Node* node_ @ node;
     unsigned subObject_ @ subObject;
 };
+}

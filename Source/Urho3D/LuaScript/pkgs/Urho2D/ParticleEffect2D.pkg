@@ -1,3 +1,4 @@
+module urho {
 $#include "Urho2D/ParticleEffect2D.h"
 
 enum EmitterType2D
@@ -9,3 +10,4 @@ enum EmitterType2D
 class ParticleEffect2D : public Resource
 {
 };
+}

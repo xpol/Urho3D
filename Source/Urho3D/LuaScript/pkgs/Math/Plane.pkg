@@ -1,3 +1,4 @@
+module urho {
 $#include "Math/Plane.h"
 
 
@@ -32,3 +33,4 @@ class Plane
     
     static const Plane UP;
 };
+}

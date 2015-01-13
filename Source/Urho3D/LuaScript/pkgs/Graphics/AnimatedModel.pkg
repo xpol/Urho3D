@@ -1,3 +1,4 @@
+module urho {
 $#include "Graphics/AnimatedModel.h"
 
 class AnimatedModel : public StaticModel
@@ -39,3 +40,4 @@ class AnimatedModel : public StaticModel
     tolua_readonly tolua_property__get_set unsigned numMorphs;
     tolua_readonly tolua_property__is_set bool master;
 };
+}

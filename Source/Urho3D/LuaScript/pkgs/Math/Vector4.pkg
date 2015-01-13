@@ -1,3 +1,4 @@
+module urho {
 $#include "Math/Vector4.h"
 
 class Vector4
@@ -35,3 +36,4 @@ class Vector4
     static const Vector4 ZERO;
     static const Vector4 ONE;
 };
+}

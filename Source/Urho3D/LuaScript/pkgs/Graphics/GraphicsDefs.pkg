@@ -1,3 +1,4 @@
+module urho {
 $#include "Graphics/GraphicsDefs.h"
 
 enum PrimitiveType
@@ -213,3 +214,4 @@ static const int SHADOWQUALITY_HIGH_24BIT;
 static const unsigned CLEAR_COLOR;
 static const unsigned CLEAR_DEPTH;
 static const unsigned CLEAR_STENCIL;
+}

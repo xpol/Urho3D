@@ -1,3 +1,4 @@
+module urho {
 $#include "UI/LineEdit.h"
 
 class LineEdit : public BorderImage
@@ -37,16 +38,17 @@ class LineEdit : public BorderImage
     tolua_readonly tolua_property__get_set Text* textElement;
     tolua_readonly tolua_property__get_set BorderImage* cursor;
 };
+}
 
 ${
-#define TOLUA_DISABLE_tolua_UILuaAPI_LineEdit_new00
-static int tolua_UILuaAPI_LineEdit_new00(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_UILuaAPI_urho_LineEdit_new00
+static int tolua_UILuaAPI_urho_LineEdit_new00(lua_State* tolua_S)
 {
     return ToluaNewObject<LineEdit>(tolua_S);
 }
 
-#define TOLUA_DISABLE_tolua_UILuaAPI_LineEdit_new00_local
-static int tolua_UILuaAPI_LineEdit_new00_local(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_UILuaAPI_urho_LineEdit_new00_local
+static int tolua_UILuaAPI_urho_LineEdit_new00_local(lua_State* tolua_S)
 {
     return ToluaNewObjectGC<LineEdit>(tolua_S);
 }

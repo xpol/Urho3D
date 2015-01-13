@@ -1,3 +1,4 @@
+module urho {
 $#include "Graphics/Renderer.h"
 
 class Renderer
@@ -98,14 +99,15 @@ class Renderer
 
 Renderer* GetRenderer();
 tolua_readonly tolua_property__get_set Renderer* renderer;
+}
 
 ${
-#define TOLUA_DISABLE_tolua_GraphicsLuaAPI_GetRenderer00
-static int tolua_GraphicsLuaAPI_GetRenderer00(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_GraphicsLuaAPI_urho_GetRenderer00
+static int tolua_GraphicsLuaAPI_urho_GetRenderer00(lua_State* tolua_S)
 {
     return ToluaGetSubsystem<Renderer>(tolua_S);
 }
 
-#define TOLUA_DISABLE_tolua_get_renderer_ptr
-#define tolua_get_renderer_ptr tolua_GraphicsLuaAPI_GetRenderer00
+#define TOLUA_DISABLE_tolua_get_urho_renderer_ptr
+#define tolua_get_urho_renderer_ptr tolua_GraphicsLuaAPI_urho_GetRenderer00
 $}

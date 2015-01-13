@@ -1,3 +1,4 @@
+module urho {
 $#include "Urho2D/TileMapLayer2D.h"
 
 class TileMapLayer2D : Component
@@ -30,3 +31,4 @@ class TileMapLayer2D : Component
     tolua_readonly tolua_property__get_set unsigned numObjects;
     tolua_readonly tolua_property__get_set Node* imageNode;
 };
+}

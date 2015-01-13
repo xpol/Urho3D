@@ -1,3 +1,4 @@
+module urho {
 $#include "Urho2D/ConstraintPrismatic2D.h"
 
 class ConstraintPrismatic2D : Constraint2D
@@ -29,3 +30,4 @@ class ConstraintPrismatic2D : Constraint2D
     tolua_property__get_set float maxMotorForce;
     tolua_property__get_set float motorSpeed;
 };
+}

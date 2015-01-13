@@ -1,3 +1,4 @@
+module urho {
 $#include "Engine/Engine.h"
 
 class Engine : public Object
@@ -41,14 +42,15 @@ class Engine : public Object
 
 Engine* GetEngine();
 tolua_readonly tolua_property__get_set Engine* engine;
+}
 
 ${
-#define TOLUA_DISABLE_tolua_EngineLuaAPI_GetEngine00
-static int tolua_EngineLuaAPI_GetEngine00(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_EngineLuaAPI_urho_GetEngine00
+static int tolua_EngineLuaAPI_urho_GetEngine00(lua_State* tolua_S)
 {
     return ToluaGetSubsystem<Engine>(tolua_S);
 }
 
-#define TOLUA_DISABLE_tolua_get_engine_ptr
-#define tolua_get_engine_ptr tolua_EngineLuaAPI_GetEngine00
+#define TOLUA_DISABLE_tolua_get_urho_engine_ptr
+#define tolua_get_urho_engine_ptr tolua_EngineLuaAPI_urho_GetEngine00
 $}

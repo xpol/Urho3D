@@ -1,3 +1,4 @@
+module urho {
 $#include "IO/File.h"
 $#include "Input/Input.h"
 
@@ -120,6 +121,7 @@ class Input : public Object
 
 Input* GetInput();
 tolua_readonly tolua_property__get_set Input* input;
+}
 
 ${
 static bool InputSaveGestures(Input* input, File* file)
@@ -155,12 +157,12 @@ static unsigned InputLoadGestures(Input* input, const String& fileName)
     return file.IsOpen() ? input->LoadGestures(file) : 0;
 }
 
-#define TOLUA_DISABLE_tolua_InputLuaAPI_GetInput00
-static int tolua_InputLuaAPI_GetInput00(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_InputLuaAPI_urho_GetInput00
+static int tolua_InputLuaAPI_urho_GetInput00(lua_State* tolua_S)
 {
     return ToluaGetSubsystem<Input>(tolua_S);
 }
 
-#define TOLUA_DISABLE_tolua_get_input_ptr
-#define tolua_get_input_ptr tolua_InputLuaAPI_GetInput00
+#define TOLUA_DISABLE_tolua_get_urho_input_ptr
+#define tolua_get_urho_input_ptr tolua_InputLuaAPI_urho_GetInput00
 $}

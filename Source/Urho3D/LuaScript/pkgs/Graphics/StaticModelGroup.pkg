@@ -1,3 +1,4 @@
+module urho {
 $#include "Graphics/StaticModelGroup.h"
 
 class StaticModelGroup : public StaticModel
@@ -11,3 +12,4 @@ class StaticModelGroup : public StaticModel
     
     tolua_readonly tolua_property__get_set unsigned numInstanceNodes;
 };
+}

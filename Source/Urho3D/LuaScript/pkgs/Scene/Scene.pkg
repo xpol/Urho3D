@@ -1,3 +1,4 @@
+module urho {
 $#include "Scene/Scene.h"
 
 static const unsigned FIRST_REPLICATED_ID;
@@ -92,16 +93,17 @@ class Scene : public Node
     tolua_readonly tolua_property__is_set bool threadedUpdate;
     tolua_property__get_set String varNamesAttr;
 };
+}
 
 ${
-#define TOLUA_DISABLE_tolua_SceneLuaAPI_Scene_new00
-static int tolua_SceneLuaAPI_Scene_new00(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_SceneLuaAPI_urho_Scene_new00
+static int tolua_SceneLuaAPI_urho_Scene_new00(lua_State* tolua_S)
 {
     return ToluaNewObject<Scene>(tolua_S);
 }
 
-#define TOLUA_DISABLE_tolua_SceneLuaAPI_Scene_new00_local
-static int tolua_SceneLuaAPI_Scene_new00_local(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_SceneLuaAPI_urho_Scene_new00_local
+static int tolua_SceneLuaAPI_urho_Scene_new00_local(lua_State* tolua_S)
 {
     return ToluaNewObjectGC<Scene>(tolua_S);
 }

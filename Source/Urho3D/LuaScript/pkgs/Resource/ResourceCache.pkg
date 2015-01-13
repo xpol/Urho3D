@@ -1,3 +1,4 @@
+module urho {
 $#include "Resource/ResourceCache.h"
 
 class ResourceCache
@@ -45,16 +46,17 @@ class ResourceCache
 
 ResourceCache* GetCache();
 tolua_readonly tolua_property__get_set ResourceCache* cache;
+}
 
 ${
-#define TOLUA_DISABLE_tolua_ResourceLuaAPI_GetCache00
-static int tolua_ResourceLuaAPI_GetCache00(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_ResourceLuaAPI_urho_GetCache00
+static int tolua_ResourceLuaAPI_urho_GetCache00(lua_State* tolua_S)
 {
     return ToluaGetSubsystem<ResourceCache>(tolua_S);
 }
 
-#define TOLUA_DISABLE_tolua_get_cache_ptr
-#define tolua_get_cache_ptr tolua_ResourceLuaAPI_GetCache00
+#define TOLUA_DISABLE_tolua_get_urho_cache_ptr
+#define tolua_get_urho_cache_ptr tolua_ResourceLuaAPI_urho_GetCache00
 
 static File* ResourceCacheGetFile(ResourceCache* cache, const String& fileName)
 {

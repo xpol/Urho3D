@@ -1,3 +1,4 @@
+module urho {
 $#include "Urho2D/ParticleEmitter2D.h"
 
 class ParticleEmitter2D : public Drawable2D
@@ -11,3 +12,4 @@ public:
     tolua_property__get_set ParticleEffect2D* effect;
     tolua_property__get_set Sprite2D* sprite;
 };
+}

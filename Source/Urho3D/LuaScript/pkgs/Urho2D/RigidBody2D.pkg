@@ -1,3 +1,4 @@
+module urho {
 $#include "Urho2D/RigidBody2D.h"
 
 enum BodyType2D
@@ -59,3 +60,4 @@ class RigidBody2D : Component
     tolua_property__get_set Vector2 linearVelocity;
     tolua_property__get_set float angularVelocity;
 };
+}

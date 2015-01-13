@@ -1,3 +1,4 @@
+module urho {
 $#include "Network/HttpRequest.h"
 
 enum HttpRequestState
@@ -24,3 +25,4 @@ class HttpRequest : public Deserializer
     tolua_readonly tolua_property__get_set unsigned availableSize;
     tolua_readonly tolua_property__is_set bool open;
 };
+}

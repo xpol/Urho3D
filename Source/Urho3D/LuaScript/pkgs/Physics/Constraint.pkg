@@ -1,3 +1,4 @@
+module urho {
 $#include "Physics/Constraint.h"
 
 enum ConstraintType
@@ -57,6 +58,7 @@ class Constraint : public Component
     tolua_property__get_set float CFM;
     tolua_property__get_set bool disableCollision;
 };
+}
 
 ${
 #define TOLUA_DISABLE_tolua_get_Constraint_axis_ref

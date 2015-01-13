@@ -1,3 +1,4 @@
+module urho {
 $#include "Graphics/Model.h"
 
 class Model : public Resource
@@ -22,6 +23,7 @@ class Model : public Resource
     tolua_readonly tolua_property__get_set unsigned numGeometries;
     tolua_readonly tolua_property__get_set unsigned numMorphs;
 };
+}
 
 ${
 static Model* ModelClone(const Model* model, const String& cloneName = String::EMPTY)

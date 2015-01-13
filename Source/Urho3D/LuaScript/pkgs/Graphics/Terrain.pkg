@@ -1,3 +1,4 @@
+module urho {
 $#include "Graphics/Terrain.h"
 
 class Terrain : public Component
@@ -67,3 +68,4 @@ class Terrain : public Component
     tolua_property__is_set bool occludee;
 
 };
+}

@@ -1,3 +1,4 @@
+module urho {
 $#include "Graphics/Octree.h"
 
 class Octree : public Component
@@ -25,6 +26,8 @@ class Octree : public Component
 
     tolua_readonly tolua_property__get_set unsigned numLevels;
 };
+
+}
 
 ${
 static const PODVector<OctreeQueryResult>& OctreeGetDrawablesPoint(const Octree* octree, const Vector3& point, unsigned char drawableFlags = DRAWABLE_ANY, unsigned viewMask = DEFAULT_VIEWMASK)

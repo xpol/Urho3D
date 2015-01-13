@@ -1,3 +1,4 @@
+module urho {
 $#include "UI/Text3D.h"
 
 // Duplicated here from GraphicsDefs.pkg to so that enum is bound correctly to Text3D
@@ -80,16 +81,17 @@ class Text3D : public Drawable
     tolua_property__get_set float opacity;
     tolua_property__get_set FaceCameraMode faceCameraMode;
 };
+}
 
 ${
-#define TOLUA_DISABLE_tolua_UILuaAPI_Text3D_new00
-static int tolua_UILuaAPI_Text3D_new00(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_UILuaAPI_urho_Text3D_new00
+static int tolua_UILuaAPI_urho_Text3D_new00(lua_State* tolua_S)
 {
     return ToluaNewObject<Text3D>(tolua_S);
 }
 
-#define TOLUA_DISABLE_tolua_UILuaAPI_Text3D_new00_local
-static int tolua_UILuaAPI_Text3D_new00_local(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_UILuaAPI_urho_Text3D_new00_local
+static int tolua_UILuaAPI_urho_Text3D_new00_local(lua_State* tolua_S)
 {
     return ToluaNewObjectGC<Text3D>(tolua_S);
 }

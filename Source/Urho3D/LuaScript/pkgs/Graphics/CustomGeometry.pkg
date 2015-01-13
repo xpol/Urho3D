@@ -1,3 +1,4 @@
+module urho {
 $#include "Graphics/CustomGeometry.h"
 
 struct CustomGeometryVertex
@@ -34,3 +35,4 @@ class CustomGeometry : public Drawable
     tolua_property__get_set unsigned numGeometries;
     tolua_property__is_set bool dynamic;
 };
+}

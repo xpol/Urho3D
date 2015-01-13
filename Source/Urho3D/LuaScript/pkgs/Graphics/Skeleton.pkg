@@ -1,3 +1,4 @@
+module urho {
 $#include "Graphics/Skeleton.h"
 
 struct Bone
@@ -29,3 +30,4 @@ class Skeleton
     tolua_readonly tolua_property__get_set unsigned numBones;
     tolua_readonly tolua_property__get_set Bone* rootBone;
 };
+}

@@ -1,3 +1,4 @@
+module urho {
 $#include "Urho2D/ConstraintFriction2D.h"
 
 class ConstraintFriction2D : Constraint2D
@@ -14,3 +15,4 @@ class ConstraintFriction2D : Constraint2D
     tolua_property__get_set float maxForce;
     tolua_property__get_set float maxTorque;
 };
+}

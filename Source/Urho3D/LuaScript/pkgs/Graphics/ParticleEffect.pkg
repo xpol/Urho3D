@@ -1,3 +1,4 @@
+module urho {
 $#include "Graphics/ParticleEffect.h"
 
 enum EmitterType
@@ -127,3 +128,4 @@ class ParticleEffect : public Resource
     tolua_property__get_set unsigned numColorFrames;
     tolua_property__get_set unsigned numTextureFrames;
 };
+}

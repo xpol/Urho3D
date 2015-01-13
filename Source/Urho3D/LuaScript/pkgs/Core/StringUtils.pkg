@@ -1,3 +1,4 @@
+module urho {
 $#include "Core/StringUtils.h"
 
 bool ToBool(const String source);
@@ -24,3 +25,4 @@ bool IsAlpha(unsigned ch);
 bool IsDigit(unsigned ch);
 unsigned ToUpper(unsigned ch);
 unsigned ToLower(unsigned ch);
+}

@@ -1,3 +1,5 @@
+module urho {
+
 $#include "Engine/Console.h"
 
 class Console : public Object
@@ -44,14 +46,15 @@ class Console : public Object
 
 Console* GetConsole();
 tolua_readonly tolua_property__get_set Console* console;
+}
 
 ${
-#define TOLUA_DISABLE_tolua_EngineLuaAPI_GetConsole00
-static int tolua_EngineLuaAPI_GetConsole00(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_EngineLuaAPI_urho_GetConsole00
+static int tolua_EngineLuaAPI_urho_GetConsole00(lua_State* tolua_S)
 {
     return ToluaGetSubsystem<Console>(tolua_S);
 }
 
-#define TOLUA_DISABLE_tolua_get_console_ptr
-#define tolua_get_console_ptr tolua_EngineLuaAPI_GetConsole00
+#define TOLUA_DISABLE_tolua_get_urho_console_ptr
+#define tolua_get_urho_console_ptr tolua_EngineLuaAPI_urho_GetConsole00
 $}

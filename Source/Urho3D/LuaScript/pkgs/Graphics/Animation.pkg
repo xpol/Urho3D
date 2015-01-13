@@ -1,3 +1,4 @@
+module urho {
 $#include "Graphics/Animation.h"
 
 struct AnimationKeyFrame
@@ -47,3 +48,4 @@ class Animation : public Resource
     tolua_readonly tolua_property__get_set unsigned numTracks;
     tolua_readonly tolua_property__get_set unsigned numTriggers;
 };
+}

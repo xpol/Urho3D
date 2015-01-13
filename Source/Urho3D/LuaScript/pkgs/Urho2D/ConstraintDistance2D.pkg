@@ -1,3 +1,4 @@
+module urho {
 $#include "Urho2D/ConstraintDistance2D.h"
 
 class ConstraintDistance2D : Constraint2D
@@ -17,3 +18,4 @@ class ConstraintDistance2D : Constraint2D
     tolua_property__get_set float frequencyHz;
     tolua_property__get_set float dampingRatio;
 };
+}

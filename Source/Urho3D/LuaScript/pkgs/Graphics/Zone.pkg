@@ -1,3 +1,4 @@
+module urho {
 $#include "Graphics/Zone.h"
 
 class Zone : public Drawable
@@ -48,3 +49,4 @@ class Zone : public Drawable
     tolua_property__get_set bool ambientGradient;
     tolua_property__get_set Texture* zoneTexture;
 };
+}

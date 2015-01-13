@@ -1,3 +1,4 @@
+module urho {
 $#include "Core/Timer.h"
 
 
@@ -21,14 +22,15 @@ class Time : public Object
 
 Time* GetTime();
 tolua_readonly tolua_property__get_set Time* time;
+}
 
 ${
-#define TOLUA_DISABLE_tolua_CoreLuaAPI_GetTime00
-static int tolua_CoreLuaAPI_GetTime00(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_CoreLuaAPI_urho_GetTime00
+static int tolua_CoreLuaAPI_urho_GetTime00(lua_State* tolua_S)
 {
     return ToluaGetSubsystem<Time>(tolua_S);
 }
 
-#define TOLUA_DISABLE_tolua_get_time_ptr
-#define tolua_get_time_ptr tolua_CoreLuaAPI_GetTime00
+#define TOLUA_DISABLE_tolua_get_urho_time_ptr
+#define tolua_get_urho_time_ptr tolua_CoreLuaAPI_urho_GetTime00
 $}

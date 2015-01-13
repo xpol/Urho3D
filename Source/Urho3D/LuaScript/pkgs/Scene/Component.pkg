@@ -1,3 +1,4 @@
+module urho {
 $#include "Scene/Component.h"
 
 class Component : public Animatable
@@ -14,3 +15,4 @@ class Component : public Animatable
     Component* GetComponent(StringHash type) const;
     Component* GetComponent(const String type) const;
 };
+}

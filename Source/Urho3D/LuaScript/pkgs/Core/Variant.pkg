@@ -1,3 +1,4 @@
+module urho {
 $#include "Core/Variant.h"
 $#include "IO/VectorBuffer.h"
 
@@ -202,6 +203,8 @@ class VariantMap
     tolua_outside const Matrix3x4& VariantMapGetMatrix3x4 @ GetMatrix3x4(const String key);
     tolua_outside const Matrix4& VariantMapGetMatrix4 @ GetMatrix4(const String key);
 };
+
+}
 
 ${
 static void VariantSetInt(Variant* variant, int value)
@@ -506,8 +509,8 @@ static const Matrix4& VariantMapGetMatrix4(const VariantMap* vmap, const String&
     return FindVariant(vmap, key).GetMatrix4();
 }
 
-#define TOLUA_DISABLE_tolua_CoreLuaAPI_VariantMap_SetPtr00
-static int tolua_CoreLuaAPI_VariantMap_SetPtr00(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_CoreLuaAPI_urho_VariantMap_SetPtr00
+static int tolua_CoreLuaAPI_urho_VariantMap_SetPtr00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -539,9 +542,9 @@ static int tolua_CoreLuaAPI_VariantMap_SetPtr00(lua_State* tolua_S)
 #endif
 }
 
-#define TOLUA_DISABLE_tolua_CoreLuaAPI_VariantMap_GetPtr00
+#define TOLUA_DISABLE_tolua_CoreLuaAPI_urho_VariantMap_GetPtr00
 
-static int tolua_CoreLuaAPI_VariantMap_GetPtr00(lua_State* tolua_S)
+static int tolua_CoreLuaAPI_urho_VariantMap_GetPtr00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;

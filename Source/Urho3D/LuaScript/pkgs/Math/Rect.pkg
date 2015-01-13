@@ -1,3 +1,4 @@
+module urho {
 $#include "Math/Rect.h"
 
 class Rect
@@ -62,3 +63,4 @@ class IntRect
     tolua_readonly tolua_property__no_prefix int width;
     tolua_readonly tolua_property__no_prefix int height;
 };
+}

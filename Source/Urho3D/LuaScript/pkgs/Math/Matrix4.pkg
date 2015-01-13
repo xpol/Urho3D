@@ -1,3 +1,4 @@
+module urho {
 $#include "Math/Matrix4.h"
 
 class Matrix4
@@ -62,4 +63,4 @@ class Matrix4
     static const Matrix4 ZERO;
     static const Matrix4 IDENTITY;
 };
-
+}

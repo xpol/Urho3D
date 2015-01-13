@@ -1,3 +1,4 @@
+module urho {
 $#include "Graphics/BillboardSet.h"
 
 struct Billboard
@@ -40,3 +41,4 @@ class BillboardSet : public Drawable
     tolua_property__get_set FaceCameraMode faceCameraMode;
     tolua_property__get_set float animationLodBias;
 };
+}

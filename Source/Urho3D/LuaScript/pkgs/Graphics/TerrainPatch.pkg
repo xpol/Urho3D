@@ -1,3 +1,4 @@
+module urho {
 $#include "Graphics/TerrainPatch.h"
 
 class TerrainPatch : public Drawable
@@ -37,3 +38,4 @@ class TerrainPatch : public Drawable
     tolua_readonly tolua_property__get_set unsigned lodLevel;
     tolua_property__get_set float occlusionOffset;
 };
+}

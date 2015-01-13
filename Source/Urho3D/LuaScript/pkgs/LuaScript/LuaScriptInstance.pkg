@@ -1,3 +1,4 @@
+module urho {
 $#include "LuaScript/LuaScriptInstance.h"
 
 class LuaScriptInstance : public Component
@@ -18,9 +19,11 @@ class LuaScriptInstance : public Component
     tolua_property__get_set const LuaFile* scriptFile;
     tolua_property__get_set const String scriptObjectType;
 };
+}
 
 $[
-LuaScriptObject = {}
+urho.LuaScriptObject = {}
+local LuaScriptObject = urho.LuaScriptObject
 
 function LuaScriptObject:Start()
 end
@@ -75,14 +78,14 @@ function LuaScriptObject:UnsubscribeFromEvents(sender)
     instance:UnsubscribeFromEvents(sender)
 end
 
-function ScriptObject()
+function urho.ScriptObject()
     local o = {}
     setmetatable(o, LuaScriptObject)
     LuaScriptObject.__index = LuaScriptObject
     return o
 end
 
-function CreateScriptObjectInstance(object, instance)
+function urho.CreateScriptObjectInstance(object, instance)
     local o = {}
     setmetatable(o, object)
     object.__index = object
@@ -109,7 +112,7 @@ function CreateScriptObjectInstance(object, instance)
     return o, attrNames
 end
 
-function DestroyScriptObjectInstance(instance)
+function urho.DestroyScriptObjectInstance(instance)
     local object = instance.object
     if object == nil then
         return
@@ -125,8 +128,8 @@ end
 $]
 
 ${
-#define TOLUA_DISABLE_tolua_LuaScriptLuaAPI_LuaScriptInstance_SubscribeToEvent00
-static int tolua_LuaScriptLuaAPI_LuaScriptInstance_SubscribeToEvent00(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_LuaScriptLuaAPI_urho_LuaScriptInstance_SubscribeToEvent00
+static int tolua_LuaScriptLuaAPI_urho_LuaScriptInstance_SubscribeToEvent00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
     tolua_Error tolua_err;
@@ -161,8 +164,8 @@ tolua_lerror:
 #endif
 }
 
-#define TOLUA_DISABLE_tolua_LuaScriptLuaAPI_LuaScriptInstance_SubscribeToEvent01
-static int tolua_LuaScriptLuaAPI_LuaScriptInstance_SubscribeToEvent01(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_LuaScriptLuaAPI_urho_LuaScriptInstance_SubscribeToEvent01
+static int tolua_LuaScriptLuaAPI_urho_LuaScriptInstance_SubscribeToEvent01(lua_State* tolua_S)
 {
     tolua_Error tolua_err;
     if (
@@ -191,6 +194,6 @@ static int tolua_LuaScriptLuaAPI_LuaScriptInstance_SubscribeToEvent01(lua_State*
     }
     return 0;
 tolua_lerror:
-    return tolua_LuaScriptLuaAPI_LuaScriptInstance_SubscribeToEvent00(tolua_S);
+    return tolua_LuaScriptLuaAPI_urho_LuaScriptInstance_SubscribeToEvent00(tolua_S);
 }
 $}

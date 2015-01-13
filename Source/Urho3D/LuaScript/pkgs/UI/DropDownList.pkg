@@ -1,3 +1,4 @@
+module urho {
 $#include "UI/DropDownList.h"
 
 class DropDownList : public Menu
@@ -37,16 +38,17 @@ class DropDownList : public Menu
     tolua_property__get_set String placeholderText;
     tolua_property__get_set bool resizePopup;
 };
+}
 
 ${
-#define TOLUA_DISABLE_tolua_UILuaAPI_DropDownList_new00
-static int tolua_UILuaAPI_DropDownList_new00(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_UILuaAPI_urho_DropDownList_new00
+static int tolua_UILuaAPI_urho_DropDownList_new00(lua_State* tolua_S)
 {
     return ToluaNewObject<DropDownList>(tolua_S);
 }
 
-#define TOLUA_DISABLE_tolua_UILuaAPI_DropDownList_new00_local
-static int tolua_UILuaAPI_DropDownList_new00_local(lua_State* tolua_S)
+#define TOLUA_DISABLE_tolua_UILuaAPI_urho_DropDownList_new00_local
+static int tolua_UILuaAPI_urho_DropDownList_new00_local(lua_State* tolua_S)
 {
     return ToluaNewObjectGC<DropDownList>(tolua_S);
 }

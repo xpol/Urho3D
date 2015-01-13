@@ -1,3 +1,4 @@
+module urho {
 $#include "Graphics/Technique.h"
 
 enum PassLightingMode
@@ -37,6 +38,8 @@ class Technique : public Resource
     tolua_readonly tolua_property__is_set bool desktop;
     tolua_readonly tolua_property__get_set unsigned numPasses;
 };
+
+}
 
 ${
 static const Vector<StringHash>& TechniqueGetPassTypes(const Technique* technique)

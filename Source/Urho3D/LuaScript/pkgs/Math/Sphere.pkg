@@ -1,3 +1,4 @@
+module urho {
 $#include "Math/Sphere.h"
 
 class Sphere
@@ -38,3 +39,4 @@ class Sphere
     float radius_ @ radius;
     bool defined_ @ defined;
 };
+}

@@ -1,3 +1,4 @@
+module urho {
 $#include "Navigation/OffMeshConnection.h"
 
 class OffMeshConnection : public Component
@@ -14,3 +15,4 @@ class OffMeshConnection : public Component
     tolua_property__get_set float radius;
     tolua_property__is_set bool bidirectional;
 };
+}

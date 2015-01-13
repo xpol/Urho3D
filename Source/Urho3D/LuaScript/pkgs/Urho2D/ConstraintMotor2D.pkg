@@ -1,3 +1,4 @@
+module urho {
 $#include "Urho2D/ConstraintMotor2D.h"
 
 class ConstraintMotor2D : Constraint2D
@@ -20,3 +21,4 @@ class ConstraintMotor2D : Constraint2D
     tolua_property__get_set float maxTorque;
     tolua_property__get_set float correctionFactor;
 };
+}

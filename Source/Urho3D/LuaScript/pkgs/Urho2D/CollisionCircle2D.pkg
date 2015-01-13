@@ -1,3 +1,4 @@
+module urho {
 $#include "Urho2D/CollisionCircle2D.h"
 
 class CollisionCircle2D : CollisionShape2D
@@ -12,3 +13,4 @@ class CollisionCircle2D : CollisionShape2D
     tolua_property__get_set float radius;
     tolua_property__get_set Vector2& center;
 };
+}
