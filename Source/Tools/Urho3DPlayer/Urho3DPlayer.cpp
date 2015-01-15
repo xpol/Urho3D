@@ -168,7 +168,7 @@ void Urho3DPlayer::Start()
         // If script loading is successful, proceed to main loop
         if (luaScript->ExecuteFile(scriptFileName_))
         {
-            luaScript->ExecuteFunction("Start");
+            luaScript->ExecuteFunction("urho.Start");
             return;
         }
 #else
@@ -200,8 +200,8 @@ void Urho3DPlayer::Stop()
     else
     {
         LuaScript* luaScript = GetSubsystem<LuaScript>();
-        if (luaScript && luaScript->GetFunction("Stop", true))
-            luaScript->ExecuteFunction("Stop");
+        if (luaScript && luaScript->GetFunction("urho.Stop", true))
+            luaScript->ExecuteFunction("urho.Stop");
     }
 #endif
 }
