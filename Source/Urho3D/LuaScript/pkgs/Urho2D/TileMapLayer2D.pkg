@@ -3,13 +3,14 @@ $#include "Urho2D/TileMapLayer2D.h"
 
 class TileMapLayer2D : Component
 {
+    void DrawDebugGeometry(DebugRenderer* debug, bool depthTest);
     void SetDrawOrder(int drawOrder);
     void SetVisible(bool visible);
 
     int GetDrawOrder() const;
     bool IsVisible() const;
-    bool HasProperty(const String& name) const;
-    const String& GetProperty(const String& name) const;
+    bool HasProperty(const String name) const;
+    const String GetProperty(const String name) const;
     TileMapLayerType2D GetLayerType() const;
 
     int GetWidth() const;

@@ -54,7 +54,7 @@ task :scaffolding do
   puts "to get a similar result as the last two rake tasks above.\n\n"
 end
 
-# Usage: rake cmake [fix_scm] [<generator>] [<platform>] [<option>=<value> [<option>=<value>]] [[<platform>_]build_tree=/path/to/build-tree]
+# Usage: rake cmake [<generator>] [<platform>] [<option>=<value> [<option>=<value>]] [[<platform>_]build_tree=/path/to/build-tree] [fix_scm]
 # e.g.: rake cmake clean android; or rake cmake android URHO3D_LIB_TYPE=SHARED; or rake cmake ios URHO3D_LUA=1 build_tree=~/ios-Build
 #
 # To avoid repeating the customized build tree locations, you can set and export them as environment variables.
@@ -88,7 +88,7 @@ task :cmake do
   system "./#{script}#{ENV['OS'] ? '.bat' : '.sh'} #{build_tree} #{build_options}" or abort
 end
 
-# Usage: rake make [numjobs=8] [<platform>] [<option>=<value> [<option>=<value>]] [[<platform>_]build_tree=/path/to/build-tree]
+# Usage: rake make [<platform>] [<option>=<value> [<option>=<value>]] [[<platform>_]build_tree=/path/to/build-tree] [numjobs=8] [clean_first] [unfilter]
 # e.g.: rake make android; or rake make android doc; or rake make ios config=Debug sdk=iphonesimulator build_tree=~/ios-Build
 desc 'Build the generated project in its corresponding build tree'
 task :make do
@@ -96,6 +96,7 @@ task :make do
   platform = 'native'
   cmake_build_options = ''
   build_options = ''
+  unfilter = false
   ARGV.each { |option|
     task option.to_sym do ; end; Rake::Task[option].clear   # No-op hack
     case option
@@ -105,6 +106,8 @@ task :make do
       platform = option
     when 'clean_first'
       cmake_build_options = "#{cmake_build_options} --clean-first"
+    when 'unfilter'
+      unfilter = true
     else
       if /(?:config|target)=.*/ =~ option
         cmake_build_options = "#{cmake_build_options} --#{option.gsub(/=/, ' ')}"
@@ -115,7 +118,7 @@ task :make do
   }
   build_tree = ENV["#{platform}_build_tree"] || ENV['build_tree'] || "../#{platform}-Build"
   if !Dir.glob("#{build_tree}/*.xcodeproj").empty?
-    filter = '|xcpretty'
+    filter = !unfilter && system('xcpretty -v >/dev/null 2>&1') ? '|xcpretty -c && exit ${PIPESTATUS[0]}' : ''
   elsif !Dir.glob("#{build_tree}/*.sln").empty?
     filter = ''
   else
@@ -159,7 +162,7 @@ task :ci do
     # Only 64-bit Linux environment with virtual framebuffer X server support and not MinGW build; or OSX build environment and not iOS build are capable to run tests
     $testing = (ENV['LINUX'] && !ENV['URHO3D_64BIT']) || (ENV['OSX'] && ENV['IOS'].to_i != 1) ? 1 : 0
     if $testing
-      ENV['URHO3D_PREFIX_PATH'] = `pwd`.chomp + '/Bin'
+      ENV['URHO3D_PREFIX_PATH'] = `pwd`.chomp + '/bin'
     end
   end
   # Define the build option string only when the override environment variable is given
@@ -366,9 +369,9 @@ endif ()
 EOF
   # TODO: Rewrite in pure Ruby when it supports symlink creation on Windows platform
   if ENV['OS']
-    system("@echo off && mkdir #{dir}\\Bin && copy Source\\Tools\\Urho3DPlayer\\Urho3DPlayer.* #{dir} >nul && (for %f in (*.bat Rakefile) do mklink #{dir}\\%f %cd%\\%f >nul) && mklink /D #{dir}\\CMake %cd%\\CMake && (for %d in (CoreData,Data) do mklink /D #{dir}\\Bin\\%d %cd%\\Bin\\%d >nul)") && File.write("#{dir}/CMakeLists.txt", build_script) or abort 'Failed to create new project using Urho3D as external library'
+    system("@echo off && mkdir #{dir}\\bin && copy Source\\Tools\\Urho3DPlayer\\Urho3DPlayer.* #{dir} >nul && (for %f in (*.bat Rakefile) do mklink #{dir}\\%f %cd%\\%f >nul) && mklink /D #{dir}\\CMake %cd%\\CMake && (for %d in (CoreData,Data) do mklink /D #{dir}\\bin\\%d %cd%\\bin\\%d >nul)") && File.write("#{dir}/CMakeLists.txt", build_script) or abort 'Failed to create new project using Urho3D as external library'
   else
-    system("bash -c \"mkdir -p #{dir}/Bin && cp Source/Tools/Urho3DPlayer/Urho3DPlayer.* #{dir} && for f in {.,}*.sh Rakefile CMake; do ln -sf `pwd`/\\$f #{dir}; done && ln -sf `pwd`/Bin/{Core,}Data #{dir}/Bin\"") && File.write("#{dir}/CMakeLists.txt", build_script) or abort 'Failed to create new project using Urho3D as external library'
+    system("bash -c \"mkdir -p #{dir}/bin && cp Source/Tools/Urho3DPlayer/Urho3DPlayer.* #{dir} && for f in {.,}*.sh Rakefile CMake; do ln -sf `pwd`/\\$f #{dir}; done && ln -sf `pwd`/bin/{Core,}Data #{dir}/bin\"") && File.write("#{dir}/CMakeLists.txt", build_script) or abort 'Failed to create new project using Urho3D as external library'
   end
 end
 

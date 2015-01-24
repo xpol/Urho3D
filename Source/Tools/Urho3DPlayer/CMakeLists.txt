@@ -27,7 +27,7 @@ set (TARGET_NAME Urho3DPlayer)
 define_source_files ()
 
 # Setup target with resource copying
-setup_main_executable ()
+setup_main_executable (NOBUNDLE)
 
 # Setup test cases
 if (URHO3D_ANGELSCRIPT)
@@ -42,8 +42,8 @@ endif ()
 # Symlink/copy helper shell scripts or batch files to invoke Urho3DPlayer
 if (NOT IOS AND NOT ANDROID)
     # Ensure the output directory exist before creating the symlinks
-    file (MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/Bin)
+    file (MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
     foreach (FILE Editor NinjaSnowWar)
-        create_symlink (${CMAKE_SOURCE_DIR}/Bin/${FILE}${SCRIPT_EXT} ${CMAKE_BINARY_DIR}/Bin/${FILE}${SCRIPT_EXT} FALLBACK_TO_COPY)
+        create_symlink (${CMAKE_SOURCE_DIR}/bin/${FILE}${SCRIPT_EXT} ${CMAKE_BINARY_DIR}/bin/${FILE}${SCRIPT_EXT} FALLBACK_TO_COPY)
     endforeach ()
 endif ()
