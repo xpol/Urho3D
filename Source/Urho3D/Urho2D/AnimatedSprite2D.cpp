@@ -20,7 +20,6 @@
 // THE SOFTWARE.
 //
 
-#include "Precompiled.h"
 #include "../Urho2D/AnimatedSprite2D.h"
 #include "../Urho2D/Animation2D.h"
 #include "../Urho2D/AnimationSet2D.h"
@@ -459,14 +458,13 @@ void AnimatedSprite2D::UpdateAnimation(float timeStep)
                 {
                     staticSprite->SetOrderInLayer(orderInLayer_ + nodeInfo.value.zIndex_);
                     staticSprite->SetSprite(nodeInfo.value.sprite_);
+                    staticSprite->SetAlpha(nodeInfo.value.alpha_);
                     staticSprite->SetUseHotSpot(nodeInfo.value.useHotSpot_);
                     staticSprite->SetHotSpot(nodeInfo.value.hotSpot_);
                 }
             }
         }
     }
-
-    MarkForUpdate();
 }
 
 void AnimatedSprite2D::CalculateTimelineWorldTransform(unsigned index)

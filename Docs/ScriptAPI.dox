@@ -67,24 +67,28 @@ namespace Urho3D
 ### EndRendering
 
 ### BeginViewUpdate
+- %View : View pointer
 - %Texture : Texture pointer
 - %Surface : RenderSurface pointer
 - %Scene : Scene pointer
 - %Camera : Camera pointer
 
 ### EndViewUpdate
+- %View : View pointer
 - %Texture : Texture pointer
 - %Surface : RenderSurface pointer
 - %Scene : Scene pointer
 - %Camera : Camera pointer
 
 ### BeginViewRender
+- %View : View pointer
 - %Texture : Texture pointer
 - %Surface : RenderSurface pointer
 - %Scene : Scene pointer
 - %Camera : Camera pointer
 
 ### EndViewRender
+- %View : View pointer
 - %Texture : Texture pointer
 - %Surface : RenderSurface pointer
 - %Scene : Scene pointer
@@ -2401,6 +2405,7 @@ Methods:
 
 Properties:
 
+- float alpha
 - String animation
 - bool animationEnabled
 - AnimationSet2D@ animationSet
@@ -2418,6 +2423,7 @@ Properties:
 - bool enabledEffective // readonly
 - bool flipX
 - bool flipY
+- Vector2 hotSpot
 - uint id // readonly
 - bool inView // readonly
 - int layer
@@ -2440,6 +2446,7 @@ Properties:
 - Texture2D@ texture
 - StringHash type // readonly
 - String typeName // readonly
+- bool useHotSpot
 - uint viewMask
 - int weakRefs // readonly
 - BoundingBox worldBoundingBox // readonly
@@ -3785,7 +3792,7 @@ Methods:
 - void SetCylinder(float, float, const Vector3& = Vector3 ( ), const Quaternion& = Quaternion ( ))
 - void SetSphere(float, const Vector3& = Vector3 ( ), const Quaternion& = Quaternion ( ))
 - void SetStaticPlane(const Vector3& = Vector3 ( ), const Quaternion& = Quaternion ( ))
-- void SetTerrain()
+- void SetTerrain(uint = 0)
 - void SetTransform(const Vector3&, const Quaternion&)
 - void SetTriangleMesh(Model@, uint = 0, const Vector3& = Vector3 ( 1 , 1 , 1 ), const Vector3& = Vector3 ( ), const Quaternion& = Quaternion ( ))
 
@@ -10337,6 +10344,7 @@ Methods:
 
 Properties:
 
+- float alpha
 - bool animationEnabled
 - Variant[] attributeDefaults // readonly
 - AttributeInfo[] attributeInfos // readonly
@@ -10352,6 +10360,7 @@ Properties:
 - bool enabledEffective // readonly
 - bool flipX
 - bool flipY
+- Vector2 hotSpot
 - uint id // readonly
 - bool inView // readonly
 - int layer
@@ -10372,6 +10381,7 @@ Properties:
 - Texture2D@ texture
 - StringHash type // readonly
 - String typeName // readonly
+- bool useHotSpot
 - uint viewMask
 - int weakRefs // readonly
 - BoundingBox worldBoundingBox // readonly

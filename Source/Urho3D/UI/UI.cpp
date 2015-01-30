@@ -20,7 +20,6 @@
 // THE SOFTWARE.
 //
 
-#include "Precompiled.h"
 #include "../UI/CheckBox.h"
 #include "../Core/Context.h"
 #include "../Core/CoreEvents.h"
@@ -320,7 +319,7 @@ void UI::Update(float timeStep)
 
             if (!dragElement)
             {
-                i = dragElementErase(i);
+                i = DragElementErase(i);
                 continue;
             }
 
@@ -642,7 +641,7 @@ const Vector<UIElement*> UI::GetDragElements()
 
         if (!dragElement)
         {
-            i = dragElementErase(i);
+            i = DragElementErase(i);
             continue;
         }
 
@@ -1004,7 +1003,7 @@ void UI::ProcessHover(const IntVector2& cursorPos, int buttons, int qualifiers, 
 
         if (!dragElement)
         {
-            i = dragElementErase(i);
+            i = DragElementErase(i);
             continue;
         }
 
@@ -1172,7 +1171,7 @@ void UI::ProcessClickEnd(const IntVector2& cursorPos, int button, int buttons, i
 
             if (!dragElement)
             {
-                i = dragElementErase(i);
+                i = DragElementErase(i);
                 continue;
             }
 
@@ -1214,7 +1213,7 @@ void UI::ProcessClickEnd(const IntVector2& cursorPos, int button, int buttons, i
                     }
                 }
 
-                i = dragElementErase(i);
+                i = DragElementErase(i);
             }
             else
                 ++i;
@@ -1235,7 +1234,7 @@ void UI::ProcessMove(const IntVector2& cursorPos, const IntVector2& cursorDeltaP
 
             if (!dragElement)
             {
-                i = dragElementErase(i);
+                i = DragElementErase(i);
                 continue;
             }
 
@@ -1683,17 +1682,21 @@ void UI::HandleDropFile(StringHash eventType, VariantMap& eventData)
     }
 }
 
-HashMap<WeakPtr<UIElement>, UI::DragData*>::Iterator UI::dragElementErase(HashMap<WeakPtr<UIElement>, UI::DragData*>::Iterator i)
+HashMap<WeakPtr<UIElement>, UI::DragData*>::Iterator UI::DragElementErase(HashMap<WeakPtr<UIElement>, UI::DragData*>::Iterator i)
 {
+    // If running the engine frame in response to an event (re-entering UI frame logic) the dragElements_ may already be empty
+    if (dragElements_.Empty())
+        return dragElements_.End();
+
     dragElementsConfirmed_.Clear();
 
     WeakPtr<UIElement> dragElement = i->first_;
     DragData* dragData = i->second_;
 
     if (!dragData->dragBeginPending)
-        dragConfirmedCount_ --;
+        --dragConfirmedCount_;
     i = dragElements_.Erase(i);
-    dragElementsCount_ --;
+    --dragElementsCount_;
 
     delete dragData;
     return i;
@@ -1718,7 +1721,7 @@ void UI::ProcessDragCancel()
         {
             dragElement->OnDragCancel(dragElement->ScreenToElement(cursorPos), cursorPos, dragData->dragButtons, mouseButtons_, cursor_);
             SendDragOrHoverEvent(E_DRAGCANCEL, dragElement, cursorPos, IntVector2::ZERO, dragData);
-            i = dragElementErase(i);
+            i = DragElementErase(i);
         }
         else
             ++i;

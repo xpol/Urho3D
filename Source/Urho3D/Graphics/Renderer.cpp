@@ -20,7 +20,6 @@
 // THE SOFTWARE.
 //
 
-#include "Precompiled.h"
 #include "../Graphics/Camera.h"
 #include "../Core/CoreEvents.h"
 #include "../Graphics/DebugRenderer.h"
@@ -632,20 +631,9 @@ void Renderer::Update(float timeStep)
                 debug->SetView(viewport->GetCamera());
         }
         
-        // Update view. This may queue further views
-        using namespace BeginViewUpdate;
-        
-        VariantMap& eventData = GetEventDataMap();
-        eventData[P_SURFACE] = renderTarget.Get();
-        eventData[P_TEXTURE] = (renderTarget ? renderTarget->GetParentTexture() : 0);
-        eventData[P_SCENE] = scene;
-        eventData[P_CAMERA] = viewport->GetCamera();
-        SendEvent(E_BEGINVIEWUPDATE, eventData);
-        
+        // Update view. This may queue further views. View will send update begin/end events once its state is set
         ResetShadowMapAllocations(); // Each view can reuse the same shadow maps
         view->Update(frame_);
-        
-        SendEvent(E_ENDVIEWUPDATE, eventData);
     }
     
     // Reset update flag from queued render surfaces. At this point no new views can be added on this frame
@@ -702,6 +690,7 @@ void Renderer::Render()
             RenderSurface* renderTarget = views_[i]->GetRenderTarget();
             
             VariantMap& eventData = GetEventDataMap();
+            eventData[P_VIEW] = views_[i];
             eventData[P_SURFACE] = renderTarget;
             eventData[P_TEXTURE] = (renderTarget ? renderTarget->GetParentTexture() : 0);
             eventData[P_SCENE] = views_[i]->GetScene();

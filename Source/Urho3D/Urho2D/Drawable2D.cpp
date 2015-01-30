@@ -20,7 +20,6 @@
 // THE SOFTWARE.
 //
 
-#include "Precompiled.h"
 #include "../Graphics/Camera.h"
 #include "../Core/Context.h"
 #include "../Urho2D/Drawable2D.h"
@@ -42,8 +41,7 @@ Drawable2D::Drawable2D(Context* context) :
     layer_(0),
     orderInLayer_(0),
     blendMode_(BLEND_ALPHA),
-    verticesDirty_(true),
-    visibility_(true)
+    verticesDirty_(true)
 {
 }
 

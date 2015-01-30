@@ -1218,7 +1218,8 @@ foreach( lang C CXX ASM )
 endforeach()
 
 # flags and definitions
-remove_definitions( -DANDROID )
+# Urho3D: comment out redundant command which actually may interfere with compile definition cache generation when enabling PCH
+#remove_definitions( -DANDROID )
 add_definitions( -DANDROID )
 
 if( ANDROID_SYSROOT MATCHES "[ ;\"]" )
@@ -1482,8 +1483,9 @@ if( NOT (ANDROID_NATIVE_API_LEVEL LESS 16) AND (NOT DEFINED ANDROID_APP_PIE OR A
  set( CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fPIE -pie")
 else()
  set( CMAKE_POSITION_INDEPENDENT_CODE FALSE )
- set( CMAKE_CXX_FLAGS "-fpic ${CMAKE_CXX_FLAGS}" )
- set( CMAKE_C_FLAGS   "-fpic ${CMAKE_C_FLAGS}" )
+ # Urho3D: Use upper case flags to be consistent with CMake (avoid both PIC and pic being added which may cause problem with suitabiblity selection of precompiled header)
+ set( CMAKE_CXX_FLAGS "-fPIC ${CMAKE_CXX_FLAGS}" )
+ set( CMAKE_C_FLAGS   "-fPIC ${CMAKE_C_FLAGS}" )
 endif()
 
 # configure rtti

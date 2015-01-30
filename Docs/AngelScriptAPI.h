@@ -199,6 +199,7 @@ void SetAttributeAnimationWrapMode(const String&, WrapMode);
 void SetFlip(bool, bool);
 
 // Properties:
+float alpha;
 String animation;
 bool animationEnabled;
 AnimationSet2D animationSet;
@@ -222,6 +223,7 @@ bool enabled;
 bool enabledEffective;
 bool flipX;
 bool flipY;
+Vector2 hotSpot;
 /* readonly */
 uint id;
 /* readonly */
@@ -251,6 +253,7 @@ Texture2D texture;
 StringHash type;
 /* readonly */
 String typeName;
+bool useHotSpot;
 uint viewMask;
 /* readonly */
 int weakRefs;
@@ -1795,7 +1798,7 @@ void SetCustomTriangleMesh(CustomGeometry, const Vector3& = Vector3 ( 1 , 1 , 1 
 void SetCylinder(float, float, const Vector3& = Vector3 ( ), const Quaternion& = Quaternion ( ));
 void SetSphere(float, const Vector3& = Vector3 ( ), const Quaternion& = Quaternion ( ));
 void SetStaticPlane(const Vector3& = Vector3 ( ), const Quaternion& = Quaternion ( ));
-void SetTerrain();
+void SetTerrain(uint = 0);
 void SetTransform(const Vector3&, const Quaternion&);
 void SetTriangleMesh(Model, uint = 0, const Vector3& = Vector3 ( 1 , 1 , 1 ), const Vector3& = Vector3 ( ), const Quaternion& = Quaternion ( ));
 
@@ -9366,6 +9369,7 @@ void SetAttributeAnimationWrapMode(const String&, WrapMode);
 void SetFlip(bool, bool);
 
 // Properties:
+float alpha;
 bool animationEnabled;
 /* readonly */
 Array<Variant> attributeDefaults;
@@ -9387,6 +9391,7 @@ bool enabled;
 bool enabledEffective;
 bool flipX;
 bool flipY;
+Vector2 hotSpot;
 /* readonly */
 uint id;
 /* readonly */
@@ -9414,6 +9419,7 @@ Texture2D texture;
 StringHash type;
 /* readonly */
 String typeName;
+bool useHotSpot;
 uint viewMask;
 /* readonly */
 int weakRefs;

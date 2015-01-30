@@ -20,7 +20,6 @@
 // THE SOFTWARE.
 //
 
-#include "Precompiled.h"
 #include "../Core/Context.h"
 #include "../Scene/Scene.h"
 #include "../Urho2D/Sprite2D.h"
@@ -104,6 +103,16 @@ void StaticSprite2D::SetColor(const Color& color)
         return;
 
     color_ = color;
+    verticesDirty_ = true;
+    MarkNetworkUpdate();
+}
+
+void StaticSprite2D::SetAlpha(float alpha)
+{
+    if (alpha == color_.a_)
+        return;
+
+    color_.a_ = alpha;
     verticesDirty_ = true;
     MarkNetworkUpdate();
 }
