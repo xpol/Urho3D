@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2014 the Urho3D project.
+// Copyright (c) 2008-2015 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -1401,7 +1401,7 @@ bool Graphics::NeedParameterUpdate(ShaderParameterGroup group, const void* sourc
         return false;
 }
 
-bool Graphics::HasShaderParameter(ShaderType type, StringHash param)
+bool Graphics::HasShaderParameter(StringHash param)
 {
     return shaderProgram_ && shaderProgram_->HasParameter(param);
 }
@@ -1474,8 +1474,12 @@ void Graphics::SetTexture(unsigned index, Texture* texture)
             if (glType != textureTypes_[index])
             {
                 if (textureTypes_[index])
+                {
+                    if (textures_[index])
+                        glBindTexture(textureTypes_[index], 0);
                     glDisable(textureTypes_[index]);
-                
+                }
+
                 glEnable(glType);
                 textureTypes_[index] = glType;
             }

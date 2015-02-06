@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2008-2014 the Urho3D project.
+// Copyright (c) 2008-2015 the Urho3D project.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -26,6 +26,7 @@
 #include "../LuaScript/LuaFile.h"
 #include "../LuaScript/LuaFunction.h"
 #include "../LuaScript/LuaScript.h"
+#include "../LuaScript/LuaScriptEventInvoker.h"
 #include "../LuaScript/LuaScriptInstance.h"
 #include "../IO/MemoryBuffer.h"
 #ifdef URHO3D_PHYSICS
@@ -68,6 +69,11 @@ LuaScriptInstance::LuaScriptInstance(Context* context) :
     luaScript_ = GetSubsystem<LuaScript>();
     luaState_ = luaScript_->GetState();
     attributeInfos_ = *context_->GetAttributes(GetTypeStatic());
+
+    eventInvoker_ =  new LuaScriptEventInvoker(this);
+
+    for (int i = 0; i < MAX_LUA_SCRIPT_OBJECT_METHODS; ++i)
+        scriptObjectMethods_[i] = 0;
 }
 
 LuaScriptInstance::~LuaScriptInstance()
@@ -105,7 +111,7 @@ void LuaScriptInstance::OnSetAttribute(const AttributeInfo& attr, const Variant&
     int top = lua_gettop(luaState_);
 
     String functionName = String("Set") + name.Substring(0, 1).ToUpper() + name.Substring(1, length - 1);
-    WeakPtr<LuaFunction> function = GetScriptObjectFunction(functionName);
+    LuaFunction* function = GetScriptObjectFunction(functionName);
     // If set function exist
     if (function)
     {
@@ -212,7 +218,7 @@ void LuaScriptInstance::OnGetAttribute(const AttributeInfo& attr, Variant& dest)
     int top = lua_gettop(luaState_);
 
     String functionName = String("Get") + name.Substring(0, 1).ToUpper() + name.Substring(1, length - 1);
-    WeakPtr<LuaFunction> function = GetScriptObjectFunction(functionName);
+    LuaFunction* function = GetScriptObjectFunction(functionName);
     // If get function exist
     if (function)
     {
@@ -268,7 +274,7 @@ void LuaScriptInstance::OnGetAttribute(const AttributeInfo& attr, Variant& dest)
 
 void LuaScriptInstance::ApplyAttributes()
 {
-    WeakPtr<LuaFunction> function = scriptObjectMethods_[LSOM_APPLYATTRIBUTES];
+    LuaFunction* function = scriptObjectMethods_[LSOM_APPLYATTRIBUTES];
     if (function && function->BeginCall(this))
     {
         function->EndCall();
@@ -283,9 +289,80 @@ void LuaScriptInstance::OnSetEnabled()
         UnsubscribeFromScriptMethodEvents();
 }
 
+void LuaScriptInstance::AddEventHandler(const String& eventName, int functionIndex)
+{
+    LuaFunction* function = luaScript_->GetFunction(functionIndex);
+    if (function)
+        eventInvoker_->AddEventHandler(0, eventName, function);
+}
+
+void LuaScriptInstance::AddEventHandler(const String& eventName, const String& functionName)
+{
+    String realFunctionName = functionName.Replaced(":", ".");
+    LuaFunction* function = luaScript_->GetFunction(realFunctionName);
+    if (function)
+        eventInvoker_->AddEventHandler(0, eventName, function);
+}
+
+void LuaScriptInstance::AddEventHandler(Object* sender, const String& eventName, int functionIndex)
+{
+    if (!sender)
+        return;
+
+    LuaFunction* function = luaScript_->GetFunction(functionIndex);
+    if (function)
+        eventInvoker_->AddEventHandler(sender, eventName, function);
+}
+
+void LuaScriptInstance::AddEventHandler(Object* sender, const String& eventName, const String& functionName)
+{
+    if (!sender)
+        return;
+
+    String realFunctionName = functionName.Replaced(":", ".");
+    LuaFunction* function = luaScript_->GetFunction(realFunctionName);
+    if (function)
+        eventInvoker_->AddEventHandler(sender, eventName, function);
+}
+
+void LuaScriptInstance::RemoveEventHandler(const String& eventName)
+{
+    eventInvoker_->UnsubscribeFromEvent(eventName);
+}
+
+void LuaScriptInstance::RemoveEventHandler(Object* sender, const String& eventName)
+{
+    if (!sender)
+        return;
+
+    eventInvoker_->UnsubscribeFromEvent(sender, eventName);
+}
+
+void LuaScriptInstance::RemoveEventHandlers(Object* sender)
+{
+    if (!sender)
+        return;
+
+    eventInvoker_->UnsubscribeFromEvents(sender);
+}
+
+void LuaScriptInstance::RemoveAllEventHandlers()
+{
+    eventInvoker_->UnsubscribeFromAllEvents();
+}
+
+void LuaScriptInstance::RemoveEventHandlersExcept(const Vector<String>& exceptionNames)
+{
+    PODVector<StringHash> exceptionTypes(exceptionNames.Size());
+    for (unsigned i = 0; i < exceptionTypes.Size(); ++i)
+        exceptionTypes[i] = StringHash(exceptionNames[i]);
+
+    eventInvoker_->UnsubscribeFromAllEventsExcept(exceptionTypes, true);
+}
+
 bool LuaScriptInstance::CreateObject(const String& scriptObjectType)
 {
-	SetScriptFile(0);
+    SetScriptFile(0);
     SetScriptObjectType(scriptObjectType);
     return scriptObjectRef_ != LUA_REFNIL;
 }
@@ -299,13 +376,13 @@ bool LuaScriptInstance::CreateObject(LuaFile* scriptFile, const String& scriptOb
 
 void LuaScriptInstance::SetScriptFile(LuaFile* scriptFile)
 {
-	if (scriptFile == scriptFile_)
-		return;
+    if (scriptFile == scriptFile_)
+        return;
 
-	scriptFile_ = scriptFile;
+    scriptFile_ = scriptFile;
 
-	if (!scriptFile_)
-		return;
+    if (!scriptFile_)
+        return;
 
     if (!scriptFile_->LoadAndExecute(luaState_))
         LOGERROR("Execute Lua file failed: " + scriptFile_->GetName());
@@ -318,7 +395,7 @@ void LuaScriptInstance::SetScriptObjectType(const String& scriptObjectType)
 
     ReleaseObject();
 
-    WeakPtr<LuaFunction> function = luaScript_->GetFunction("urho.CreateScriptObjectInstance");
+    LuaFunction* function = luaScript_->GetFunction("CreateScriptObjectInstance");
     if (!function || !function->BeginCall())
         return;
 
@@ -342,7 +419,7 @@ void LuaScriptInstance::SetScriptDataAttr(const PODVector<unsigned char>& data)
     if (scriptObjectRef_ == LUA_REFNIL)
         return;
 
-    WeakPtr<LuaFunction> function = scriptObjectMethods_[LSOM_LOAD];
+    LuaFunction* function = scriptObjectMethods_[LSOM_LOAD];
     if (function && function->BeginCall(this))
     {
         MemoryBuffer buf(data);
@@ -356,7 +433,7 @@ void LuaScriptInstance::SetScriptNetworkDataAttr(const PODVector<unsigned char>&
     if (scriptObjectRef_ == LUA_REFNIL)
         return;
 
-    WeakPtr<LuaFunction> function = scriptObjectMethods_[LSOM_READNETWORKUPDATE];
+    LuaFunction* function = scriptObjectMethods_[LSOM_READNETWORKUPDATE];
     if (function && function->BeginCall(this))
     {
         MemoryBuffer buf(data);
@@ -365,105 +442,9 @@ void LuaScriptInstance::SetScriptNetworkDataAttr(const PODVector<unsigned char>&
     }
 }
 
-void LuaScriptInstance::ScriptSubscribeToEvent(const String& eventName, int functionIndex)
-{
-    WeakPtr<LuaFunction> function = luaScript_->GetFunction(functionIndex);
-    if (function)
-    {
-        StringHash eventType(eventName);
-        SubscribeToEvent(eventType, HANDLER(LuaScriptInstance, HandleEvent));
-        eventTypeToFunctionMap_[eventType] = function;
-    }
-}
-
-void LuaScriptInstance::ScriptSubscribeToEvent(const String& eventName, const String& functionName)
-{
-    String realFunctionName = functionName.Replaced(":", ".");
-
-    WeakPtr<LuaFunction> function = luaScript_->GetFunction(realFunctionName);
-    if (function)
-    {
-        StringHash eventType(eventName);
-        SubscribeToEvent(eventType, HANDLER(LuaScriptInstance, HandleEvent));
-        eventTypeToFunctionMap_[eventType] = function;
-    }
-}
-
-void LuaScriptInstance::ScriptUnsubscribeFromEvent(const String& eventName)
-{
-    StringHash eventType(eventName);
-
-    HashMap<StringHash, WeakPtr<LuaFunction> >::Iterator i = eventTypeToFunctionMap_.Find(eventType);
-    if (i != eventTypeToFunctionMap_.End())
-    {
-        UnsubscribeFromEvent(eventType);
-        eventTypeToFunctionMap_.Erase(i);
-    }
-}
-
-void LuaScriptInstance::ScriptUnsubscribeFromAllEvents()
-{
-    if (eventTypeToFunctionMap_.Empty())
-        return;
-
-    UnsubscribeFromAllEvents();
-    eventTypeToFunctionMap_.Clear();
-}
-
-void LuaScriptInstance::ScriptSubscribeToEvent(void* sender, const String& eventName, int functionIndex)
-{
-    WeakPtr<LuaFunction> function = luaScript_->GetFunction(functionIndex);
-    if (function)
-    {
-        Object* object = (Object*)sender;
-        StringHash eventType(eventName);
-        SubscribeToEvent(object, eventType, HANDLER(LuaScriptInstance, HandleObjectEvent));
-        objectToEventTypeToFunctionMap_[object][eventType] = function;
-    }
-}
-
-void LuaScriptInstance::ScriptSubscribeToEvent(void* sender, const String& eventName, const String& functionName)
-{
-    String realFunctionName = functionName.Replaced(":", ".");
-
-    WeakPtr<LuaFunction> function = luaScript_->GetFunction(realFunctionName);
-    if (function)
-    {
-        Object* object = (Object*)sender;
-        StringHash eventType(eventName);
-        SubscribeToEvent(object, eventType, HANDLER(LuaScriptInstance, HandleObjectEvent));
-        objectToEventTypeToFunctionMap_[object][eventType] = function;
-    }
-}
-
-void LuaScriptInstance::ScriptUnsubscribeFromEvent(void* sender, const String& eventName)
-{
-    StringHash eventType(eventName);
-    Object* object = (Object*)sender ;
-
-    HashMap<StringHash, WeakPtr<LuaFunction> >::Iterator i = objectToEventTypeToFunctionMap_[object].Find(eventType);
-    if (i != objectToEventTypeToFunctionMap_[object].End())
-    {
-        UnsubscribeFromEvent(object, eventType);
-        objectToEventTypeToFunctionMap_[object].Erase(i);
-    }
-}
-
-void LuaScriptInstance::ScriptUnsubscribeFromEvents(void* sender)
-{
-    Object* object = (Object*)sender;
-
-    HashMap<Object*, HashMap<StringHash, WeakPtr<LuaFunction> > >::Iterator it = objectToEventTypeToFunctionMap_.Find(object);
-    if (it == objectToEventTypeToFunctionMap_.End())
-        return;
-
-    UnsubscribeFromEvents(object);
-    objectToEventTypeToFunctionMap_.Erase(it);
-}
-
 LuaFile* LuaScriptInstance::GetScriptFile() const
 {
-	return scriptFile_;
+    return scriptFile_;
 }
 
 PODVector<unsigned char> LuaScriptInstance::GetScriptDataAttr() const
@@ -473,7 +454,7 @@ PODVector<unsigned char> LuaScriptInstance::GetScriptDataAttr() const
 
     VectorBuffer buf;
 
-    WeakPtr<LuaFunction> function = scriptObjectMethods_[LSOM_SAVE];
+    LuaFunction* function = scriptObjectMethods_[LSOM_SAVE];
     if (function && function->BeginCall(this))
     {
         function->PushUserType((Serializer&)buf, "Serializer");
@@ -490,7 +471,7 @@ PODVector<unsigned char> LuaScriptInstance::GetScriptNetworkDataAttr() const
 
     VectorBuffer buf;
 
-    WeakPtr<LuaFunction> function = scriptObjectMethods_[LSOM_WRITENETWORKUPDATE];
+    LuaFunction* function = scriptObjectMethods_[LSOM_WRITENETWORKUPDATE];
     if (function && function->BeginCall(this))
     {
         function->PushUserType((Serializer&)buf, "Serializer");
@@ -510,7 +491,7 @@ void LuaScriptInstance::OnMarkedDirty(Node* node)
         return;
     }
 
-    WeakPtr<LuaFunction> function = scriptObjectMethods_[LSOM_TRANSFORMCHANGED];
+    LuaFunction* function = scriptObjectMethods_[LSOM_TRANSFORMCHANGED];
     if (function && function->BeginCall(this))
     {
         function->EndCall();
@@ -661,7 +642,7 @@ void LuaScriptInstance::HandleUpdate(StringHash eventType, VariantMap& eventData
     using namespace Update;
     float timeStep = eventData[P_TIMESTEP].GetFloat();
 
-    WeakPtr<LuaFunction> function = scriptObjectMethods_[LSOM_UPDATE];
+    LuaFunction* function = scriptObjectMethods_[LSOM_UPDATE];
     if (function && function->BeginCall(this))
     {
         function->PushFloat(timeStep);
@@ -674,7 +655,7 @@ void LuaScriptInstance::HandlePostUpdate(StringHash eventType, VariantMap& event
     using namespace PostUpdate;
     float timeStep = eventData[P_TIMESTEP].GetFloat();
 
-    WeakPtr<LuaFunction> function = scriptObjectMethods_[LSOM_POSTUPDATE];
+    LuaFunction* function = scriptObjectMethods_[LSOM_POSTUPDATE];
     if (function && function->BeginCall(this))
     {
         function->PushFloat(timeStep);
@@ -688,7 +669,7 @@ void LuaScriptInstance::HandleFixedUpdate(StringHash eventType, VariantMap& even
     using namespace PhysicsPreStep;
     float timeStep = eventData[P_TIMESTEP].GetFloat();
 
-    WeakPtr<LuaFunction> function = scriptObjectMethods_[LSOM_FIXEDUPDATE];
+    LuaFunction* function = scriptObjectMethods_[LSOM_FIXEDUPDATE];
     if (function && function->BeginCall(this))
     {
         function->PushFloat(timeStep);
@@ -701,7 +682,7 @@ void LuaScriptInstance::HandlePostFixedUpdate(StringHash eventType, VariantMap& 
     using namespace PhysicsPostStep;
     float timeStep = eventData[P_TIMESTEP].GetFloat();
 
-    WeakPtr<LuaFunction> function = scriptObjectMethods_[LSOM_FIXEDPOSTUPDATE];
+    LuaFunction* function = scriptObjectMethods_[LSOM_FIXEDPOSTUPDATE];
     if (function && function->BeginCall(this))
     {
         function->PushFloat(timeStep);
@@ -709,29 +690,6 @@ void LuaScriptInstance::HandlePostFixedUpdate(StringHash eventType, VariantMap& 
     }
 }
 #endif
-
-void LuaScriptInstance::HandleEvent(StringHash eventType, VariantMap& eventData)
-{
-    WeakPtr<LuaFunction> function = eventTypeToFunctionMap_[eventType];
-    if (function && function->BeginCall(this))
-    {
-        function->PushUserType(eventType, "StringHash");
-        function->PushUserType(eventData, "VariantMap");
-        function->EndCall();
-    }
-}
-
-void LuaScriptInstance::HandleObjectEvent(StringHash eventType, VariantMap& eventData)
-{
-    Object* object = GetEventSender();
-    WeakPtr<LuaFunction> function = objectToEventTypeToFunctionMap_[object][eventType];
-    if (function && function->BeginCall(this))
-    {
-        function->PushUserType(eventType, "StringHash");
-        function->PushUserType(eventData, "VariantMap");
-        function->EndCall();
-    }
-}
 
 void LuaScriptInstance::ReleaseObject()
 {
@@ -747,7 +705,7 @@ void LuaScriptInstance::ReleaseObject()
     luaL_unref(luaState_, LUA_REGISTRYINDEX, scriptObjectRef_);
     scriptObjectRef_ = LUA_REFNIL;
 
-    WeakPtr<LuaFunction> function = luaScript_->GetFunction("DestroyScriptObjectInstance");
+    LuaFunction* function = luaScript_->GetFunction("DestroyScriptObjectInstance");
     if (function && function->BeginCall())
     {
         function->PushUserType((void*)this, "LuaScriptInstance");
@@ -755,7 +713,7 @@ void LuaScriptInstance::ReleaseObject()
     }
 }
 
-WeakPtr<LuaFunction> LuaScriptInstance::GetScriptObjectFunction(const String& functionName) const
+LuaFunction* LuaScriptInstance::GetScriptObjectFunction(const String& functionName) const
 {
     return luaScript_->GetFunction(scriptObjectType_ + "." + functionName, true);
 }

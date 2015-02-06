@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008-2014 the Urho3D project.
+# Copyright (c) 2008-2015 the Urho3D project.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -217,7 +217,7 @@ endif ()
 
 # If not on Windows platform, enable Unix mode for kNet library and OpenGL graphic back-end
 if (NOT WIN32)
-    add_definitions (-DUNIX)
+    add_definitions (-DKNET_UNIX)
     set (URHO3D_OPENGL 1)
 endif ()
 
@@ -314,7 +314,7 @@ elseif (XCODE)
     if (NOT URHO3D_64BIT)
         set (CMAKE_OSX_ARCHITECTURES $(ARCHS_STANDARD_32_BIT))
     endif ()
-    set (CMAKE_OSX_SYSROOT macosx)	# Set Base SDK to "Latest OS X"
+    set (CMAKE_OSX_SYSROOT macosx)    # Set Base SDK to "Latest OS X"
     if (NOT CMAKE_OSX_DEPLOYMENT_TARGET)
         # If not set, set to current running build system OS version by default
         execute_process (COMMAND sw_vers -productVersion OUTPUT_VARIABLE CURRENT_OSX_VERSION OUTPUT_STRIP_TRAILING_WHITESPACE)
@@ -534,7 +534,12 @@ macro (enable_pch HEADER_PATHNAME)
                 execute_process (COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_BINARY_DIR}/${HEADER_FILENAME}.${CONFIG}.pch.rsp.new ${CMAKE_CURRENT_BINARY_DIR}/${HEADER_FILENAME}.${CONFIG}.pch.rsp)
                 file (REMOVE ${CMAKE_CURRENT_BINARY_DIR}/${HEADER_FILENAME}.${CONFIG}.pch.rsp.new)
                 # Determine the dependency list
-                execute_process (COMMAND ${CMAKE_CXX_COMPILER} @${CMAKE_CURRENT_BINARY_DIR}/${HEADER_FILENAME}.${CONFIG}.pch.rsp -MTdeps -MM -o ${CMAKE_CURRENT_BINARY_DIR}/${HEADER_FILENAME}.${CONFIG}.pch.deps ${CMAKE_CURRENT_SOURCE_DIR}/${HEADER_PATHNAME})
+                execute_process (COMMAND ${CMAKE_CXX_COMPILER} @${CMAKE_CURRENT_BINARY_DIR}/${HEADER_FILENAME}.${CONFIG}.pch.rsp -MTdeps -MM -o ${CMAKE_CURRENT_BINARY_DIR}/${HEADER_FILENAME}.${CONFIG}.pch.deps ${CMAKE_CURRENT_SOURCE_DIR}/${HEADER_PATHNAME} RESULT_VARIABLE CXX_COMPILER_EXIT_CODE)
+                if (NOT CXX_COMPILER_EXIT_CODE EQUAL 0)
+                    message (FATAL_ERROR "The configured compiler toolchain in the build tree is not able to handle all the compiler flags required to build the project. "
+                        "Please kindly update your compiler toolchain to its latest version. If you are using MinGW then make sure it is MinGW-W64 instead of MinGW-W32 or TDM-GCC (Code::Blocks default). "
+                        "However, if you think there is something wrong with the compiler flags being used then please file a bug report to the project devs.")
+                endif ()
                 file (STRINGS ${CMAKE_CURRENT_BINARY_DIR}/${HEADER_FILENAME}.${CONFIG}.pch.deps DEPS)
                 string (REGEX REPLACE "^deps: *| *\\; +" ";" DEPS ${DEPS})
                 # Create the rule that depends on the included headers
@@ -568,6 +573,12 @@ macro (enable_pch HEADER_PATHNAME)
                 set (TRIGGERS ${HEADER_FILENAME}.${CMAKE_BUILD_TYPE}.pch.trigger)
             endif ()
             list (APPEND SOURCE_FILES ${TRIGGERS})
+            # Ninja-build specific
+            if (CMAKE_GENERATOR STREQUAL Ninja)
+                # The precompiled header is always generated in the current binary dir,
+                # but Ninja project is not able to find it without adding the binary dir to the include search path
+                list (APPEND INCLUDE_DIRS ${CMAKE_CURRENT_BINARY_DIR})
+            endif ()
         endif ()
     endif ()
 endmacro ()
@@ -657,7 +668,7 @@ macro (setup_executable)
         define_dependency_libs (Urho3D)
     endif ()
     setup_target ()
-    
+
     if (URHO3D_SCP_TO_TARGET)
         add_custom_command (TARGET ${TARGET_NAME} POST_BUILD COMMAND scp $<TARGET_FILE:${TARGET_NAME}> ${URHO3D_SCP_TO_TARGET} || exit 0
             COMMENT "Scp-ing ${TARGET_NAME} executable to target system")
@@ -767,7 +778,7 @@ macro (setup_main_executable)
             set_target_properties (${TARGET_NAME} PROPERTIES ${TARGET_PROPERTIES})
         endif ()
     endif ()
-    
+
     if (IOS)
         # Define a custom target to check for resource modification
         get_target_property (TARGET_LOC ${TARGET_NAME} LOCATION)
@@ -936,12 +947,12 @@ macro (define_source_files)
     list (APPEND CPP_FILES ${ARG_EXTRA_CPP_FILES})
     list (APPEND H_FILES ${ARG_EXTRA_H_FILES})
     set (SOURCE_FILES ${CPP_FILES} ${H_FILES})
-    
+
     # Optionally enable PCH
     if (ARG_PCH)
         enable_pch (${ARG_PCH})
     endif ()
-    
+
     # Optionally accumulate source files at parent scope
     if (ARG_PARENT_SCOPE)
         get_filename_component (NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME)

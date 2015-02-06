@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008-2014 the Urho3D project.
+# Copyright (c) 2008-2015 the Urho3D project.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@ endif ()
 
 # this one is important
 set (CMAKE_SYSTEM_NAME Linux)
-#this one not so much
+# this one not so much
 set (CMAKE_SYSTEM_VERSION 1)
 
 # specify the cross compiler
